@@ -1,10 +1,21 @@
-from . import *  
+from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
+from app.irsystem.similarity import *
+
 
 project_name = "Get StartTED: TED Talk Recommendation System"
 # net_id = "Andrea Benson ab2393, Caroline Chang cdc222, Nandita Mohan nkm39, Gauri Jain gj82, Michael Rivera mr858"
 net_id = "Andrea Benson, Caroline Chang, Nandita Mohan, Gauri Jain, Michael Rivera"
+
+def process_single_prompt(url): #functionality could be in a js file as well
+	url_parts = url.split('=')
+	prompt = url_parts[1]
+	words = prompt.split('+')
+	final_str = ""
+	for w in words:
+		final_str = final_str + " " + w
+	return final_str
 
 @irsystem.route('/', methods=['GET'])
 def search():
@@ -16,7 +27,9 @@ def search():
 
 	else:
 		output_message = query
-		return render_template('results.html', output_message=output_message)
-
-
-
+		prompt1 = process_single_prompt(request.url)
+		data = descrip_search(prompt1)
+		# print("here is the output message ! : ")
+		#print("Input: "+ output_message)
+		#print(data)
+		return render_template('results.html', output_message=output_message, data=data)

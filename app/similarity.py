@@ -11,10 +11,10 @@ talk_information = pd.read_csv('ted-talks/ted_main.csv')
 
 def tokenize(text):
     """Returns a list of words that make up the text.
-    
+
     Note: for simplicity, lowercase everything.
     Requirement: Use Regex to satisfy this function
-    
+
     Params: {text: String}
     Returns: List
     """
@@ -106,7 +106,7 @@ def index_search(query, index, idf, doc_norms, tokenizer=treebank_tokenizer):
     while _id < len(doc_norms):
         ret.append((0,_id))
         _id += 1
-        
+
     q = tokenizer.tokenize(query.lower())
     q_comp = {}
     for w in q:
@@ -119,7 +119,7 @@ def index_search(query, index, idf, doc_norms, tokenizer=treebank_tokenizer):
         if idf.get(k) != None:
             q_norm += (q_comp[k] * idf[k])**2
     q_norm = math.sqrt(q_norm)
-    
+
     for w in q:
         if idf.get(w) != None:
             for ent in index[w]:
@@ -130,6 +130,13 @@ def index_search(query, index, idf, doc_norms, tokenizer=treebank_tokenizer):
         if q_norm * d_norms[_id] != 0:
             ret[_id] = (ret[_id][0] / (q_norm * d_norms[_id]), ret[_id][1])
         _id += 1
-        
+
     ret = sorted(ret,reverse=True)
     return ret
+
+
+def descrip_search(query):
+    return index_search(query, description_idx, description_idf, description_norms)
+
+def trans_search(query):
+    return index_search(query, transcript_idx, transcript_idf, transcript_norms)
