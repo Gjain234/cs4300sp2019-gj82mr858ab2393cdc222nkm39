@@ -12,10 +12,10 @@ talk_information = pd.read_csv('ted-talks/ted_main.csv')
 
 def tokenize(text):
     """Returns a list of words that make up the text.
-    
+
     Note: for simplicity, lowercase everything.
     Requirement: Use Regex to satisfy this function
-    
+
     Params: {text: String}
     Returns: List
     """
@@ -109,7 +109,7 @@ def index_search(query, index, idf, doc_norms, tokenize_method):
         _id_ref[temp[_id]] = _id
         ret.append((0,temp[_id]))
         _id += 1
-        
+
     q = tokenize_method(query.lower())
     q_comp = {}
     for w in q:
@@ -122,7 +122,7 @@ def index_search(query, index, idf, doc_norms, tokenize_method):
         if idf.get(k) != None:
             q_norm += (q_comp[k] * idf[k])**2
     q_norm = math.sqrt(q_norm)
-    
+
     for w in q:
         if idf.get(w) != None and index.get(w) != None:
             for ent in index[w]:
@@ -132,7 +132,7 @@ def index_search(query, index, idf, doc_norms, tokenize_method):
         if q_norm * doc_norms[temp[_id]] != 0:
             ret[_id] = (ret[_id][0] / (q_norm * doc_norms[temp[_id]]), ret[_id][1])
         _id += 1
-        
+
     ret = sorted(ret,reverse=True)
     return ret
 
@@ -141,10 +141,23 @@ def descrip_search(query):
     #print("Search: "+ query)
     r = index_search(query, description_inv, description_idf, description_norms,tokenize)
     ret = []
-    for score, msg_id in r[:10]:
+    for score, msg_id in r[:1]:
         ret.append([score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
     return ret
 
+def get_prompt1_video_link(query):
+    #print("Search: "+ query)
+    r = index_search(query, description_inv, description_idf, description_norms,tokenize)
+    ret = []
+
+    for score, msg_id in r[:1]:
+        #ret.append([score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
+        dataset_talk = talk_information['url'][msg_id]
+        talk_segment = dataset_talk[26:]
+        temp = "https://embed.ted.com/talks/" + talk_segment
+        #temp = (talk_information['url'][msg_id]) + "?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare"
+    video_link = temp
+    return video_link
+
 def trans_search(query):
     r = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
-    

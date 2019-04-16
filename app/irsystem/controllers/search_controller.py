@@ -26,10 +26,15 @@ def search():
 		return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 
 	else:
+		# https://www.ted.com/talks/kakenya_ntaiya_empower_a_girl_transform_a_community?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare
 		output_message = query
 		prompt1 = process_single_prompt(request.url)
 		data = descrip_search(prompt1)
+		video_url = get_prompt1_video_link(query)
+		print(video_url)
+		print("DATA")
+		print(data)
 		# print("here is the output message ! : ")
 		#print("Input: "+ output_message)
 		#print(data)
-		return render_template('results.html', output_message=output_message, data=data)
+		return render_template('results.html', output_message=output_message, data=data, video_url = video_url)
