@@ -78,28 +78,34 @@ def index_search(query, index, idf, doc_norms, tokenize_method):
     ret = sorted(ret,reverse=True)
     return ret
 
-
-def descrip_search(query):
-    #print("Search: "+ query)
-    r = index_search(query, description_inv, description_idf, description_norms,tokenize)
-    ret = []
-    for score, msg_id in r[:1]:
-        ret.append([score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
-    return ret
-
 def get_prompt1_video_link(query):
     #print("Search: "+ query)
     r = index_search(query, description_inv, description_idf, description_norms,tokenize)
     ret = []
-
-    for score, msg_id in r[:1]:
+    videos = []
+    for score, msg_id in r[:10]:
         #ret.append([score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
         dataset_talk = talk_information['url'][msg_id]
         talk_segment = dataset_talk[26:]
         temp = "https://embed.ted.com/talks/" + talk_segment
+        videos.append(temp)
         #temp = (talk_information['url'][msg_id]) + "?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare"
     video_link = temp
-    return video_link
+    #print(video_link)
+    return videos
+
+def descrip_search(query):
+    #print("Search: "+ query)
+    videos = get_prompt1_video_link(query)
+    r = index_search(query, description_inv, description_idf, description_norms,tokenize)
+    ret = []
+    i = 0
+    for score, msg_id in r[:10]:
+        ret.append([videos[i], score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
+        i = i + 1
+    print("RET")
+    print(ret)
+    return ret
 
 def trans_search(query):
     r = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
