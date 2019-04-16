@@ -29,6 +29,7 @@ def search():
 		# https://www.ted.com/talks/kakenya_ntaiya_empower_a_girl_transform_a_community?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare
 		output_message = query
 		prompt1 = process_single_prompt(request.url)
+		video_url= "https://embed.ted.com/talks/colin_powell_kids_need_structure"
 		data = descrip_search(prompt1)
 		video_url = get_prompt1_video_link(query)
 		print(video_url)
