@@ -108,4 +108,13 @@ def descrip_search(query):
     return ret
 
 def trans_search(query):
+    videos = get_prompt1_video_link(query)
     r = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
+    ret = []
+    i = 0
+    for score, msg_id in r[:10]:
+        ret.append([videos[i], score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
+        i = i + 1
+    print("RET")
+    print(ret)
+    return ret
