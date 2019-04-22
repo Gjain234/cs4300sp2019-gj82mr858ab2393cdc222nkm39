@@ -108,7 +108,7 @@ def descrip_search(query):
     return ret
 
 def trans_search(query):
-    videos = get_prompt1_video_link(query)
+    videos = get_prompt2_video_link(query)
     r = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
     ret = []
     i = 0
@@ -118,3 +118,44 @@ def trans_search(query):
     print("RET")
     print(ret)
     return ret
+
+def get_prompt2_video_link(query):
+    #print("Search: "+ query)
+    r = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
+    ret = []
+    videos = []
+    for score, msg_id in r[:10]:
+        #ret.append([score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
+        dataset_talk = talk_information['url'][msg_id]
+        talk_segment = dataset_talk[26:]
+        temp = "https://embed.ted.com/talks/" + talk_segment
+        videos.append(temp)
+        #temp = (talk_information['url'][msg_id]) + "?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare"
+    video_link = temp
+    #print(video_link)
+    return videos
+
+def combined_search(query):
+    t = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
+    d = index_search(query, description_inv, description_idf, description_norms,tokenize)
+    i_t = {i:s for (s,i) in t}
+    i_d = {i:s for (s,i) in d}
+    ret = []
+    if len(i_t.keys()) > len(i_d.keys()):
+        for i in range(0,len(i_d.keys())):
+            if i_d.get(i) != None and i_t.get(i) != None:
+                ret.append((0.0 * i_t.get(i) + 1.0 * i_d.get(i), i))
+    else:
+        for i in range(0,len(i_t.keys())):
+            if i_d.get(i) != None and i_t.get(i) != None:
+                ret.append((0.0 * i_t.get(i) + 1.0 * i_d.get(i), i))
+    ret = sorted(ret,reverse=True)
+    r = []
+    for score, msg_id in ret[:10]:
+        dataset_talk = talk_information['url'][msg_id]
+        talk_segment = dataset_talk[26:]
+        temp = "https://embed.ted.com/talks/" + talk_segment
+        r.append([temp, score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
+    print(r)
+    print(i_t)
+    return r
