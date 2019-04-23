@@ -2,6 +2,7 @@
     <head>
         <link rel="stylesheet" href="/static/bootstrap.min.css">
         <link rel="stylesheet" href="/static/main.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Codystar|Glass+Antiqua|Kodchasan|Major+Mono+Display|Megrim|Poiret+One|Raleway+Dots|Sacramento|Srisakdi" rel="stylesheet">    <body>
         <div class="topcorner">
@@ -14,6 +15,13 @@
                 background-position: 50% 50%;
                 background-color: rgb(24, 23, 23);
                 background-repeat: no-repeat;
+                -webkit-background-size: cover;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                opacity: 1;
+                transition: 1s opacity;
             }
 
             .dropbtn {
@@ -30,7 +38,7 @@
             .dropdown {
                 position: relative;
                 display: inline-block;
-                }
+            }
 
             .dropdown-content {
                 display: none;
@@ -65,13 +73,13 @@
                     ...One Step Closer to Your Goals
             </h2>
             <br><br>
-            
+
             <div class="form-group">
                     <input id="input" type="text" name="search" class="form-control" placeholder="What's Your Goal?">
             </div>
             <a href="results.html"><button type="submit" class="btn btn-info"> Begin </button></a>
         </form>
-        <div style="text-align:center">
+        <div style="text-align:center;">
         <div class="dropdown">
           <button id="cat" class="dropbtn">Select Category</button>
           <div class="dropdown-content">
@@ -88,6 +96,40 @@
                   document.getElementById("cat").innerHTML = x;
               }
           </script>
+        </div>
+        <div class="dropdown">
+            <button id="mood" class="dropbtn">Mood Preference</button>
+            <div class="dropdown-content">
+            <a href="#" onclick="myFunction('Inspirational')">Inspirational</a>
+            <a href="#" onclick="myFunction('Funny')">Funny</a>
+            <a href="#" onclick="myFunction('Satirical')">Satirical</a>
+            <a href="#" onclick="myFunction('Sensitive')">Sensitive</a>
+            </div>
+            <script>
+                function myFunction(x){
+                    document.getElementById("mood").innerHTML = x;
+                }
+                // $(document).ready(function() {
+                $(document).on("click",function() {
+                  console.log("ready function");
+                  var category = document.getElementById("cat").innerHTML
+                  var mood = document.getElementById("mood").innerHTML
+                  console.log("inside click function");
+                  console.log(category);
+                  console.log(mood);
+                  $.ajax({
+                    type: "GET",
+                    data:{category:category,
+                      mood:mood
+                    },
+                    success: function(data) {
+                      console.log("hiii");
+                      console.log(category)
+                    }
+                  })
+                  //}
+              });
+            </script>
         </div>
         </div>
     </body>
