@@ -42,6 +42,15 @@ transcript_inv = pickle.load(open("transcript_inv.pkl", "rb"))
 description_norms = pickle.load(open("description_norms.pkl", "rb"))
 transcript_norms = pickle.load(open("transcript_norms.pkl", "rb"))
 
+description_low_idf = pickle.load(open("description_low_idf.pkl", "rb"))
+transcript_low_idf = pickle.load(open("transcript_low_idf.pkl", "rb"))
+
+description_low_inv = pickle.load(open("description_low_inv.pkl", "rb"))
+transcript_low_inv = pickle.load(open("transcript_low_inv.pkl", "rb"))
+
+description_low_norms = pickle.load(open("description_low_norms.pkl", "rb"))
+transcript_low_norms = pickle.load(open("transcript_low_norms.pkl", "rb"))
+
 def index_search(query, index, idf, doc_norms, tokenize_method):
     _id = 0
     ret = []
@@ -136,6 +145,13 @@ def get_prompt2_video_link(query):
     return videos
 
 def combined_search(query):
+    expan = index_search(query, description_low_inv, description_low_idf, description_low_norms,tokenize)
+    query += " "
+    for res in expan[:5]:
+        #print(talk_information['tags'][res[1]])
+        for tags in talk_information['description'][res[1]]:
+            query += tags
+    print(query)
     t = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
     d = index_search(query, description_inv, description_idf, description_norms,tokenize)
     i_t = {i:s for (s,i) in t}
@@ -144,11 +160,11 @@ def combined_search(query):
     if len(i_t.keys()) > len(i_d.keys()):
         for i in range(0,len(i_d.keys())):
             if i_d.get(i) != None and i_t.get(i) != None:
-                ret.append((0.0 * i_t.get(i) + 1.0 * i_d.get(i), i))
+                ret.append((0.1 * i_t.get(i) + 0.9 * i_d.get(i), i))
     else:
         for i in range(0,len(i_t.keys())):
             if i_d.get(i) != None and i_t.get(i) != None:
-                ret.append((0.0 * i_t.get(i) + 1.0 * i_d.get(i), i))
+                ret.append((0.1 * i_t.get(i) + 0.9 * i_d.get(i), i))
     ret = sorted(ret,reverse=True)
     r = []
     for score, msg_id in ret[:10]:
@@ -156,6 +172,8 @@ def combined_search(query):
         talk_segment = dataset_talk[26:]
         temp = "https://embed.ted.com/talks/" + talk_segment
         r.append([temp, score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
-    print(r)
-    print(i_t)
+    #print(r)
+    #print(i_t)
     return r
+
+
