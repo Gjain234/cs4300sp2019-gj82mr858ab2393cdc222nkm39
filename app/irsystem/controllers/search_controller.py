@@ -20,6 +20,11 @@ def process_single_prompt(url): #functionality could be in a js file as well
 @irsystem.route('/', methods=['GET'])
 def search():
 	query = request.args.get('search')
+	cat = request.args.get('category')
+	mood = request.args.get('mood')
+	print("get ready:")
+	print(cat)
+	print(mood)
 	if not query:
 		data = []
 		output_message = ''
