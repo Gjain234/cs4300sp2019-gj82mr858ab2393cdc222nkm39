@@ -51,6 +51,8 @@ transcript_low_inv = pickle.load(open("transcript_low_inv.pkl", "rb"))
 description_low_norms = pickle.load(open("description_low_norms.pkl", "rb"))
 transcript_low_norms = pickle.load(open("transcript_low_norms.pkl", "rb"))
 
+availTalks = pickle.load(open("availTalks.pkl", "rb"))
+
 def index_search(query, index, idf, doc_norms, tokenize_method):
     _id = 0
     ret = []
@@ -157,14 +159,11 @@ def combined_search(query):
     i_t = {i:s for (s,i) in t}
     i_d = {i:s for (s,i) in d}
     ret = []
-    if len(i_t.keys()) > len(i_d.keys()):
-        for i in range(0,len(i_d.keys())):
-            if i_d.get(i) != None and i_t.get(i) != None:
-                ret.append((0.1 * i_t.get(i) + 0.9 * i_d.get(i), i))
-    else:
-        for i in range(0,len(i_t.keys())):
-            if i_d.get(i) != None and i_t.get(i) != None:
-                ret.append((0.1 * i_t.get(i) + 0.9 * i_d.get(i), i))
+    for i in range(0,len(i_d.keys())):
+        if i_d.get(i) != None and i_t.get(availTalks[i]) != None:
+            ret.append((0.1 * i_t.get(i) + 0.9 * i_d.get(i), i))
+        elif i_d.get(i) != None:
+            ret.append((0.9 * i_d.get(i), i))
     ret = sorted(ret,reverse=True)
     r = []
     for score, msg_id in ret[:10]:
