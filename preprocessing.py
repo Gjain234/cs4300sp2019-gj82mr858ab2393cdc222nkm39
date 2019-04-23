@@ -8,6 +8,12 @@ import math
 
 transcripts = pd.read_csv('transcripts.csv')
 talk_information = pd.read_csv('ted_main.csv')
+comms = pickle.load(open("comments.pkl", "rb"))
+
+print(comms.keys())
+
+print(talk_information['url'][0])
+print(transcripts['url'][0])
 
 def tokenize(text):
     """Returns a list of words that make up the text.
@@ -32,6 +38,19 @@ def tokenize_transcript(tokenize_method,input_transcript):
         #print(tokenize_method(input_transcript[i]))
         final_lst = final_lst + list(set(tokenize_method(input_transcript[i])))
     return final_lst
+
+def availableTalks(talks_info,trans):
+    ret = {}
+    for url in list(trans['url']):
+        #print(url)
+        if url in list(talks_info['url']):
+            ret[list(talks_info['url']).index(url)] = list(trans['url']).index(url)
+    return ret
+
+availTalks = availableTalks(talk_information,transcripts)
+
+#print(len(availTalks.keys()))
+#print(availTalks)
 
 all_words_total = tokenize_transcript(tokenize,talk_information['description'])
 
@@ -99,6 +118,13 @@ def compute_doc_norms(index, idf, n_docs):
 description_low_norms = compute_doc_norms(description_low_inv, description_low_idf, len(description_low_inv))
 transcript_low_norms = compute_doc_norms(transcript_low_inv, transcript_low_idf, len(transcript_low_inv))
 
+
+"""
+f = open("availTalks.pkl","wb")
+pickle.dump(availTalks,f)
+f.close()
+
+
 f = open("description_low_inv.pkl","wb")
 pickle.dump(description_low_inv,f)
 f.close()
@@ -122,4 +148,4 @@ f.close()
 f = open("transcript_low_norms.pkl","wb")
 pickle.dump(transcript_low_norms,f)
 f.close()
-    
+"""
