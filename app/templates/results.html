@@ -2,42 +2,88 @@
     <head>
         <link rel="stylesheet" href="/static/bootstrap.min.css">
         <link rel="stylesheet" href="/static/main.css">
-        <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Codystar|Glass+Antiqua|Kodchasan|Major+Mono+Display|Megrim|Poiret+One|Raleway+Dots|Sacramento|Srisakdi" rel="stylesheet"><body>
+        <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Codystar|Glass+Antiqua|Kodchasan|Major+Mono+Display|Megrim|Poiret+One|Raleway+Dots|Sacramento|Srisakdi|Luckiest+Guy" rel="stylesheet"><body>
     </head>
     <style>
-        .text-vid {
+        .text-vid1 {
             height: relative;
             scroll-behavior: auto;
             align-content: center;
+            margin-left: 30px;
+            border-radius: 20px;
             background-color: white;
+        }
+        .text-vid2 {
+            height: relative;
+            scroll-behavior: auto;
+            align-content: right;
+            margin-left: 30px;
+            border-radius: 20px;
+            background-color: white;
+        }
+        .text-vid3 {
+            height: relative;
+            scroll-behavior: auto;
+            align-content: left;
+            margin-left: 30px;
+            border-radius: 20px;
+            background-color: white;
+        }
+
+        .playlist {
+            background-color: rgba(255, 255, 255, 0.952);
+            border-radius: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+        }
+
+        .theme {
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 40px;
+            color:antiquewhite;
+            padding-right: 60px;
+            padding-left: 60px;
+            text-align: center;
+            width: 200px;
         }
         .video {
             margin: 0 auto;
-	        border: 10px outset #ddd;
+	        border: 8px outset #ddd;
             align-content: center;
+            border-radius: 20px;
         }
         .video-box {
-            width:420px;
-            height:315px;
+            width:280px;
+            height:180px;
+            border-radius: 15px;
             align-content: center;
         }
     </style>
     <body>
-        <div class="topcorner">
-            <li><a href="?search.html" class="btn btn-info"> Back to Search </a></li>
+        <div>
+            <li class="topcorner"><a href="?search.html" class="btn btn-info"> Back to Search </a></li>
+            <h1 class="top" style="text-align:center;font-family:Codystar; color:rgb(245, 115, 110);">Showing Results for: {{output_message}}</h1>        
+        </div>        
+        <br>
+        <div align="center" style="text-align: center; display:inline-block; justify-content:center; padding-left:150px">
+            <span class="theme">Mood Setting</span>               
+            <span class="theme">Skill</span>
+            <span class="theme">Lifestyle</span>
         </div>
 	<form class="form-inline global-search">
         {% if data %}
-            <h1 style="font-family:Codystar; color:rgb(245, 115, 110);">Showing Results for: {{output_message}}</h1>
             {% for d in data %}
                 <br>
             <br>
-        <div class="text-vid">
+        <div class="playlist">
+        <div class="text-vid1">
             <div class="video-box" style:"text-align:center">
                 <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{video_url}}</p> -->
                 <iframe class="video"
                 src={{d[0]}}
-                width="420" height="315"
+                width="280" height="180"
                 frameborder="0" scrolling="no"></iframe><br><br>
                 <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{d[0]}}</p>  -->
                 {% for i in range(1, 4)%}
@@ -45,8 +91,38 @@
                 <br>
                 {% endfor %}
             </div> <br><br>
-
         </div>
+
+        <div class="text-vid2">
+            <div class="video-box" style:"text-align:center">
+                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{video_url}}</p> -->
+                <iframe class="video"
+                src={{d[0]}}
+                width="280" height="180"
+                frameborder="0" scrolling="no"></iframe><br><br>
+                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{d[0]}}</p>  -->
+                {% for i in range(1, 4)%}
+                <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{d[i]}}</p>
+                <br>
+                {% endfor %}
+            </div> <br><br>
+        </div>
+
+        <div class="text-vid3">
+            <div class="video-box" style:"text-align:center">
+                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{video_url}}</p> -->
+                <iframe class="video"
+                src={{d[0]}}
+                width="280" height="180"
+                frameborder="0" scrolling="no"></iframe><br><br>
+                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{d[0]}}</p>  -->
+                {% for i in range(1, 4)%}
+                <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{d[i]}}</p>
+                <br>
+                {% endfor %}
+            </div> <br><br>
+        </div>
+    </div>
 
             {% endfor %}
         {% endif %}

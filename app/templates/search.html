@@ -14,8 +14,15 @@
                 background-position: 50% 50%;
                 background-color: rgb(24, 23, 23);
                 background-repeat: no-repeat;
+                -webkit-background-size: cover;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                opacity: 1;
+                transition: 1s opacity;
             }
-
+            
             .dropbtn {
                 background-color: rgb(230, 210, 99);
                 color: rgb(63, 61, 61);
@@ -30,7 +37,7 @@
             .dropdown {
                 position: relative;
                 display: inline-block;
-                }
+            }
 
             .dropdown-content {
                 display: none;
@@ -71,7 +78,7 @@
             </div>
             <a href="results.html"><button type="submit" class="btn btn-info"> Begin </button></a>
         </form>
-        <div style="text-align:center">
+        <div style="text-align:center;">
         <div class="dropdown">
           <button id="cat" class="dropbtn">Select Category</button>
           <div class="dropdown-content">
@@ -88,6 +95,20 @@
                   document.getElementById("cat").innerHTML = x;
               }
           </script>
+        </div>
+        <div class="dropdown">
+            <button id="mood" class="dropbtn">Mood Preference</button>
+            <div class="dropdown-content">
+            <a href="#" onclick="myFunction('Inspirational')">Inspirational</a>
+            <a href="#" onclick="myFunction('Funny')">Funny</a>
+            <a href="#" onclick="myFunction('Satirical')">Satirical</a>
+            <a href="#" onclick="myFunction('Sensitive')">Sensitive</a>
+            </div>
+            <script>
+                function myFunction(x){
+                    document.getElementById("mood").innerHTML = x;
+                }
+            </script>
         </div>
         </div>
     </body>
