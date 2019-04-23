@@ -2,6 +2,7 @@
     <head>
         <link rel="stylesheet" href="/static/bootstrap.min.css">
         <link rel="stylesheet" href="/static/main.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Codystar|Glass+Antiqua|Kodchasan|Major+Mono+Display|Megrim|Poiret+One|Raleway+Dots|Sacramento|Srisakdi" rel="stylesheet">    <body>
         <div class="topcorner">
@@ -22,7 +23,7 @@
                 opacity: 1;
                 transition: 1s opacity;
             }
-            
+
             .dropbtn {
                 background-color: rgb(230, 210, 99);
                 color: rgb(63, 61, 61);
@@ -72,7 +73,7 @@
                     ...One Step Closer to Your Goals
             </h2>
             <br><br>
-            
+
             <div class="form-group">
                     <input id="input" type="text" name="search" class="form-control" placeholder="What's Your Goal?">
             </div>
@@ -108,6 +109,26 @@
                 function myFunction(x){
                     document.getElementById("mood").innerHTML = x;
                 }
+                // $(document).ready(function() {
+                $(document).on("click",function() {
+                  console.log("ready function");
+                  var category = document.getElementById("cat").innerHTML
+                  var mood = document.getElementById("mood").innerHTML
+                  console.log("inside click function");
+                  console.log(category);
+                  console.log(mood);
+                  $.ajax({
+                    type: "GET",
+                    data:{category:category,
+                      mood:mood
+                    },
+                    success: function(data) {
+                      console.log("hiii");
+                      console.log(category)
+                    }
+                  })
+                  //}
+              });
             </script>
         </div>
         </div>
