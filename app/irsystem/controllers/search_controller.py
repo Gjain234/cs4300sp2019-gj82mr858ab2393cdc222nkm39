@@ -2,11 +2,14 @@ from . import *
 from app.irsystem.models.helpers import *
 from app.irsystem.models.helpers import NumpyEncoder as NumpyEncoder
 from app.irsystem.similarity import *
-
+from app.irsystem.svd import *
+import json
 
 project_name = "Get StartTED: TED Talk Recommendation System"
 # net_id = "Andrea Benson ab2393, Caroline Chang cdc222, Nandita Mohan nkm39, Gauri Jain gj82, Michael Rivera mr858"
 net_id = "Andrea Benson, Caroline Chang, Nandita Mohan, Gauri Jain, Michael Rivera"
+cat_q = list()
+mood_q = list()
 
 def process_single_prompt(url): #functionality could be in a js file as well
 	url_parts = url.split('=')
@@ -21,10 +24,17 @@ def process_single_prompt(url): #functionality could be in a js file as well
 def search():
 	query = request.args.get('search')
 	cat = request.args.get('category')
+	if(cat!="Select Category" and cat!=None):
+		cat_q.append(cat)
 	mood = request.args.get('mood')
-	print("get ready:")
-	print(cat)
-	print(mood)
+	if(mood!="Mood Preference" and mood!=None):
+		mood_q.append(mood)
+	#rel = mood_q.pop()
+	
+
+	# print("get ready:")
+	# print(cat_q)
+	# print(mood_q)
 	if not query:
 		data = []
 		output_message = ''
@@ -44,4 +54,14 @@ def search():
 		# print("here is the output message ! : ")
 		#print("Input: "+ output_message)
 		#print(data)
+		# documents = []
+
+		'''S  V   D '''
+		# with open("ted_main.json", encoding="utf8") as f:
+		# 	data2=json.load(f)
+		# 	for x in data2:
+		# 		documents.append((x["name"], x["description"]))
+		# idx = findindex(data2, video_url)
+		# cluster = getcluster(idx)
+		# ec = extract_cluster_ratings(closest_projects,idx)
 		return render_template('results.html', output_message=output_message, data=data, video_url = video_url)
