@@ -49,6 +49,12 @@ def availableTalks(talks_info,trans):
 
 availTalks = availableTalks(talk_information,transcripts)
 
+def swapIndexs(comments,talks_info):
+    
+    for title in list(trans['title']):
+        if title in comments.keys():
+            
+
 #print(len(availTalks.keys()))
 #print(availTalks)
 

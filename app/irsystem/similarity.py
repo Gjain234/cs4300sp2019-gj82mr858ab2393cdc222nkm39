@@ -105,31 +105,6 @@ def get_prompt1_video_link(query):
     #print(video_link)
     return videos
 
-def descrip_search(query):
-    #print("Search: "+ query)
-    videos = get_prompt1_video_link(query)
-    r = index_search(query, description_inv, description_idf, description_norms,tokenize)
-    ret = []
-    i = 0
-    for score, msg_id in r[:10]:
-        ret.append([videos[i], score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
-        i = i + 1
-    print("RET")
-    print(ret)
-    return ret
-
-def trans_search(query):
-    videos = get_prompt2_video_link(query)
-    r = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
-    ret = []
-    i = 0
-    for score, msg_id in r[:10]:
-        ret.append([videos[i], score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
-        i = i + 1
-    print("RET")
-    print(ret)
-    return ret
-
 def get_prompt2_video_link(query):
     #print("Search: "+ query)
     r = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
@@ -160,8 +135,8 @@ def combined_search(query):
     i_d = {i:s for (s,i) in d}
     ret = []
     for i in range(0,len(i_d.keys())):
-        if i_d.get(i) != None and i_t.get(availTalks[i]) != None:
-            ret.append((0.1 * i_t.get(i) + 0.9 * i_d.get(i), i))
+        if i_d.get(i) != None and availTalks.get(i) != None and i_t.get(availTalks[i]) != None:
+            ret.append((0.1 * i_t.get(availTalks[i]) + 0.9 * i_d.get(i), i))
         elif i_d.get(i) != None:
             ret.append((0.9 * i_d.get(i), i))
     ret = sorted(ret,reverse=True)
