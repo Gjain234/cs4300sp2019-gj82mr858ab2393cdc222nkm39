@@ -2,6 +2,7 @@
     <head>
         <link rel="stylesheet" href="/static/bootstrap.min.css">
         <link rel="stylesheet" href="/static/main.css">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Codystar|Glass+Antiqua|Kodchasan|Major+Mono+Display|Megrim|Poiret+One|Raleway+Dots|Sacramento|Srisakdi" rel="stylesheet">    <body>
         <div class="topcorner">
@@ -9,53 +10,60 @@
             <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative; top:560px; left: -300">Creators: ({{ netid }})</p>
         </div>
         <style>
-        body {
-            background-image: url("https://images.pexels.com/photos/164829/pexels-photo-164829.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
-            background-position: 50% 50%;
-            background-color: rgb(24, 23, 23);
-            background-repeat: no-repeat;
-        }
-
-        .dropbtn {
-            background-color: rgb(230, 210, 99);
-            color: rgb(63, 61, 61);
-            padding: 10px;
-            font-size: 16px;
-            font-family: Didot;
-            min-width: 160px;
-            height: 40px;
-            border: none;
+            body {
+                background-image: url("https://images.pexels.com/photos/164829/pexels-photo-164829.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500");
+                background-position: 50% 50%;
+                background-color: rgb(24, 23, 23);
+                background-repeat: no-repeat;
+                -webkit-background-size: cover;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                opacity: 1;
+                transition: 1s opacity;
             }
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
+            .dropbtn {
+                background-color: rgb(230, 210, 99);
+                color: rgb(63, 61, 61);
+                padding: 10px;
+                font-size: 16px;
+                font-family: Didot;
+                min-width: 160px;
+                height: 40px;
+                border: none;
+                }
+
+            .dropdown {
+                position: relative;
+                display: inline-block;
             }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f1f1f1;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-            z-index: 1;
-            }
+            .dropdown-content {
+                display: none;
+                position: relative;
+                background-color: #f1f1f1;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+                }
 
-        .dropdown-content a {
-            color: black;
-            font-size: 12px;
-            font-family: Megrim;
-            font-weight: bold;
-            padding: 9px 12px;
-            text-decoration: none;
-            display: block;
-            }
+            .dropdown-content a {
+                color: black;
+                font-size: 12px;
+                font-family: Megrim;
+                font-weight: bold;
+                padding: 9px 12px;
+                text-decoration: none;
+                display: block;
+                }
 
-        .dropdown-content a:hover {background-color: #ddd;}
+            .dropdown-content a:hover {background-color: #ddd;}
 
-        .dropdown:hover .dropdown-content {display: block;}
+            .dropdown:hover .dropdown-content {display: block;}
 
-        .dropdown:hover .dropbtn {background-color: #fc8181;}
+            .dropdown:hover .dropbtn {background-color: #fc8181;}
         </style>
         <form class="form-inline global-search">
             <h1 style="font-size: 70px; font-family: 'Poiret One',cursive; color: #f86450; position:relative; top:-80px; left:150">
@@ -65,34 +73,64 @@
                     ...One Step Closer to Your Goals
             </h2>
             <br><br>
-            
+
             <div class="form-group">
                     <input id="input" type="text" name="search" class="form-control" placeholder="What's Your Goal?">
             </div>
             <a href="results.html"><button type="submit" class="btn btn-info"> Begin </button></a>
         </form>
-        <div style="text-align:center">
+        <div style="text-align:center;">
         <div class="dropdown">
-          <button class="dropbtn">Select Category</button>
+          <button id="cat" class="dropbtn">Select Category</button>
           <div class="dropdown-content">
-            <a href="#">Health</a>
-            <a href="#">Sports</a>
-            <a href="#">Education</a>
-            <a href="#">Technology</a>
-            <a href="#">Entertainment</a>
-            <a href="#">Politics</a>
-            <a href="#">Religion and Culture</a>
+            <a href="#" onclick="myFunction('Health')">Health</a>
+            <a href="#" onclick="myFunction('Sports')">Sports</a>
+            <a href="#" onclick="myFunction('Education')">Education</a>
+            <a href="#" onclick="myFunction('Technology')">Technology</a>
+            <a href="#" onclick="myFunction('Entertainment')">Entertainment</a>
+            <a href="#" onclick="myFunction('Politics')">Politics</a>
+            <a href="#" onclick="myFunction('Religion and Culture')">Religion and Culture</a>
           </div>
+          <script>
+              function myFunction(x){
+                  document.getElementById("cat").innerHTML = x;
+              }
+          </script>
         </div>
-        <!-- <form class="form-inline global-search">
-        {% if data %}
-            <h1>{{output_message}}</h1>
-            {% for d in data %}  
-                <br>
-                <p>{{d}}</p>
-            {% endfor %}
-        {% endif %}
-        </form> -->
+        <div class="dropdown">
+            <button id="mood" class="dropbtn">Mood Preference</button>
+            <div class="dropdown-content">
+            <a href="#" onclick="myFunction('Inspirational')">Inspirational</a>
+            <a href="#" onclick="myFunction('Funny')">Funny</a>
+            <a href="#" onclick="myFunction('Satirical')">Satirical</a>
+            <a href="#" onclick="myFunction('Sensitive')">Sensitive</a>
+            </div>
+            <script>
+                function myFunction(x){
+                    document.getElementById("mood").innerHTML = x;
+                }
+                // $(document).ready(function() {
+                $(document).on("click",function() {
+                  console.log("ready function");
+                  var category = document.getElementById("cat").innerHTML
+                  var mood = document.getElementById("mood").innerHTML
+                  console.log("inside click function");
+                  console.log(category);
+                  console.log(mood);
+                  $.ajax({
+                    type: "GET",
+                    data:{category:category,
+                      mood:mood
+                    },
+                    success: function(data) {
+                      console.log("hiii");
+                      console.log(category)
+                    }
+                  })
+                  //}
+              });
+            </script>
+        </div>
+        </div>
     </body>
-
 </html>

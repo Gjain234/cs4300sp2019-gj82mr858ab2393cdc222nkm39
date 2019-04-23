@@ -20,16 +20,28 @@ def process_single_prompt(url): #functionality could be in a js file as well
 @irsystem.route('/', methods=['GET'])
 def search():
 	query = request.args.get('search')
+	cat = request.args.get('category')
+	mood = request.args.get('mood')
+	print("get ready:")
+	print(cat)
+	print(mood)
 	if not query:
 		data = []
 		output_message = ''
 		return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 
 	else:
+		# https://www.ted.com/talks/kakenya_ntaiya_empower_a_girl_transform_a_community?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare
 		output_message = query
 		prompt1 = process_single_prompt(request.url)
-		data = descrip_search(prompt1)
+		#video_url= "https://embed.ted.com/talks/colin_powell_kids_need_structure"
+		data = combined_search(prompt1)
+                # data = combined_search(prompt1)
+		video_url = get_prompt2_video_link(query)
+		#print(video_url)
+		#print("DATA")
+		#print(data)
 		# print("here is the output message ! : ")
 		#print("Input: "+ output_message)
 		#print(data)
-		return render_template('results.html', output_message=output_message, data=data)
+		return render_template('results.html', output_message=output_message, data=data, video_url = video_url)

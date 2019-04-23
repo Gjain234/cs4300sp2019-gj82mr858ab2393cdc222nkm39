@@ -36,13 +36,13 @@ def tokenize_transcript(tokenize_method,input_transcript):
 all_words_total = tokenize_transcript(tokenize,talk_information['description'])
 
 description_word_dict = (collections.Counter(all_words_total))
-good_types_descriptions = {k:v for (k,v) in description_word_dict.items() if (v != 0)}
+good_types_descriptions = {k:v for (k,v) in description_word_dict.items()}
 
 all_words_total_transcripts = tokenize_transcript(tokenize, transcripts['transcript'])
 transcript_word_dict = (collections.Counter(all_words_total_transcripts))
-good_types_transcripts = {k:v for (k,v) in transcript_word_dict.items() if (v!=0)}
+good_types_transcripts = {k:v for (k,v) in transcript_word_dict.items()}
 
-def compute_idf(doc_freq, n_docs, min_df=1, max_df_ratio=0.95):
+def compute_idf(doc_freq, n_docs, min_df=1, max_df_ratio=0.85):
     """Returns a dictionary of IDFs for each word
     Params: {doc_freq: Dictionary,
              n_docs: Int}
@@ -56,15 +56,15 @@ def compute_idf(doc_freq, n_docs, min_df=1, max_df_ratio=0.95):
             q[term] = math.log(n_docs/(1+temp),2)
     return q
 
-description_idf = compute_idf(good_types_descriptions,len(good_types_descriptions.keys()))
-transcript_idf = compute_idf(good_types_transcripts,len(good_types_transcripts.keys()))
+description_idf = compute_idf(good_types_descriptions,len(good_types_descriptions.keys()),1,0.85)
+transcript_idf = compute_idf(good_types_transcripts,len(good_types_transcripts.keys()),1,0.85)
 
 def compute_inv(tokenize_method,input_transcript,t_idf):
     q = {}
     for i in (range(0,len(input_transcript))):
         final_lst = tokenize_method(input_transcript[i])
         df_temp = (collections.Counter(final_lst))
-        trans_df = {k:v for (k,v) in df_temp.items() if (v != 1)}
+        trans_df = {k:v for (k,v) in df_temp.items()}
         temp = {}
         for term in trans_df.keys():
             if term in t_idf.keys():
