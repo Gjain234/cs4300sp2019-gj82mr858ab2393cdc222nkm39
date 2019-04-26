@@ -8,6 +8,12 @@ import math
 
 transcripts = pd.read_csv('transcripts.csv')
 talk_information = pd.read_csv('ted_main.csv')
+comms = pickle.load(open("comments.pkl", "rb"))
+
+print(comms.keys())
+
+print(talk_information['url'][0])
+print(transcripts['url'][0])
 
 def tokenize(text):
     """Returns a list of words that make up the text.
@@ -33,6 +39,19 @@ def tokenize_transcript(tokenize_method,input_transcript):
         final_lst = final_lst + list(set(tokenize_method(input_transcript[i])))
     return final_lst
 
+def availableTalks(talks_info,trans):
+    ret = {}
+    for url in list(trans['url']):
+        #print(url)
+        if url in list(talks_info['url']):
+            ret[list(talks_info['url']).index(url)] = list(trans['url']).index(url)
+    return ret
+
+availTalks = availableTalks(talk_information,transcripts)
+
+#print(len(availTalks.keys()))
+#print(availTalks)
+
 all_words_total = tokenize_transcript(tokenize,talk_information['description'])
 
 description_word_dict = (collections.Counter(all_words_total))
@@ -56,8 +75,8 @@ def compute_idf(doc_freq, n_docs, min_df=1, max_df_ratio=0.85):
             q[term] = math.log(n_docs/(1+temp),2)
     return q
 
-description_idf = compute_idf(good_types_descriptions,len(good_types_descriptions.keys()),1,0.85)
-transcript_idf = compute_idf(good_types_transcripts,len(good_types_transcripts.keys()),1,0.85)
+description_low_idf = compute_idf(good_types_descriptions,len(good_types_descriptions.keys()),1,0.05)
+transcript_low_idf = compute_idf(good_types_transcripts,len(good_types_transcripts.keys()),1,0.05)
 
 def compute_inv(tokenize_method,input_transcript,t_idf):
     q = {}
@@ -80,8 +99,8 @@ def compute_inv(tokenize_method,input_transcript,t_idf):
     return q
 
 
-description_inv = compute_inv(tokenize,talk_information['description'],description_idf)
-transcript_inv = compute_inv(tokenize,transcripts['transcript'],transcript_idf)
+description_low_inv = compute_inv(tokenize,talk_information['description'],description_low_idf)
+transcript_low_inv = compute_inv(tokenize,transcripts['transcript'],transcript_low_idf)
 
 def compute_doc_norms(index, idf, n_docs):
     d = {}
@@ -96,66 +115,37 @@ def compute_doc_norms(index, idf, n_docs):
         d[doc] = math.sqrt(d[doc])
     return d
 
-description_norms = compute_doc_norms(description_inv, description_idf, len(description_inv))
-transcript_norms = compute_doc_norms(transcript_inv, transcript_idf, len(transcript_inv))
+description_low_norms = compute_doc_norms(description_low_inv, description_low_idf, len(description_low_inv))
+transcript_low_norms = compute_doc_norms(transcript_low_inv, transcript_low_idf, len(transcript_low_inv))
 
-def index_search(query, index, idf, doc_norms, tokenize_method):
-    _id = 0
-    ret = []
-    _id_ref = {}
-    temp = list(doc_norms.keys())
-    while _id < len(temp):
-        _id_ref[temp[_id]] = _id
-        ret.append((0,temp[_id]))
-        _id += 1
-        
-    q = tokenize_method(query.lower())
-    q_comp = {}
-    for w in q:
-        if q_comp.get(w) == None:
-            q_comp[w] = 1
-        else:
-            q_comp[w] += 1
-    q_norm = 0
-    for k in q_comp.keys():
-        if idf.get(k) != None:
-            q_norm += (q_comp[k] * idf[k])**2
-    q_norm = math.sqrt(q_norm)
-    
-    for w in q:
-        if idf.get(w) != None and index.get(w) != None:
-            for ent in index[w]:
-                ret[_id_ref[ent[0]]] = (ret[_id_ref[ent[0]]][0] + q_comp.get(w) * idf.get(w) * ent[1] * idf.get(w), ret[_id_ref[ent[0]]][1])
-    _id = 0
-    while _id < len(temp):
-        if q_norm * doc_norms[temp[_id]] != 0:
-            ret[_id] = (ret[_id][0] / (q_norm * doc_norms[temp[_id]]), ret[_id][1])
-        _id += 1
-        
-    ret = sorted(ret,reverse=True)
-    return ret
 
-f = open("description_inv.pkl","wb")
-pickle.dump(description_inv,f)
+"""
+f = open("availTalks.pkl","wb")
+pickle.dump(availTalks,f)
 f.close()
 
-f = open("description_idf.pkl","wb")
-pickle.dump(description_idf,f)
+
+f = open("description_low_inv.pkl","wb")
+pickle.dump(description_low_inv,f)
 f.close()
 
-f = open("description_norms.pkl","wb")
-pickle.dump(description_norms,f)
+f = open("description_low_idf.pkl","wb")
+pickle.dump(description_low_idf,f)
 f.close()
 
-f = open("transcript_inv.pkl","wb")
-pickle.dump(transcript_inv,f)
+f = open("description_low_norms.pkl","wb")
+pickle.dump(description_low_norms,f)
 f.close()
 
-f = open("transcript_idf.pkl","wb")
-pickle.dump(transcript_idf,f)
+f = open("transcript_low_inv.pkl","wb")
+pickle.dump(transcript_low_inv,f)
 f.close()
 
-f = open("transcript_norms.pkl","wb")
-pickle.dump(transcript_norms,f)
+f = open("transcript_low_idf.pkl","wb")
+pickle.dump(transcript_low_idf,f)
 f.close()
-    
+
+f = open("transcript_low_norms.pkl","wb")
+pickle.dump(transcript_low_norms,f)
+f.close()
+"""

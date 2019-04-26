@@ -43,7 +43,7 @@
             font-family: 'Luckiest Guy', cursive;
             font-size: 40px;
             color:antiquewhite;
-            padding-right: 60px;
+            padding-right: 75px;
             padding-left: 60px;
             text-align: center;
             width: 200px;
@@ -60,6 +60,27 @@
             border-radius: 15px;
             align-content: center;
         }
+
+        .arrow-right {
+            width: 0;
+            height: 0;
+            float:right;
+            cursor: pointer;
+            border-bottom-right-radius: 20px;
+            border-top: 50px solid transparent;
+            border-left: 60px solid rgb(243, 110, 110);
+            border-bottom: 50px solid transparent;
+          }
+
+        .arrow-left {
+            width: 0;
+            height: 0;
+            cursor: pointer;
+            float:left;
+            border-top: 50px solid transparent;
+            border-right: 60px solid rgb(243, 110, 110);
+            border-bottom: 50px solid transparent;
+        }
     </style>
     <body>
         <div>
@@ -74,9 +95,11 @@
         </div>
 	<form class="form-inline global-search">
         {% if data %}
-            {% for d in data %}
+            {% for d in data[:4] %}
                 <br>
             <br>
+        <!-- <span class="arrow-right" href="#" onclick="next()"></span> 
+        <span class="arrow-left" href="#" onclick="next()"></span>          -->
         <div class="playlist">
         <div class="text-vid1">
             <div class="video-box" style:"text-align:center">
@@ -123,6 +146,7 @@
             </div> <br><br>
         </div>
     </div>
+    <br><br>
 
             {% endfor %}
         {% endif %}

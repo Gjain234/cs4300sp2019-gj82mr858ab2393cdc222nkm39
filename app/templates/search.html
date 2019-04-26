@@ -28,16 +28,19 @@
                 background-color: rgb(230, 210, 99);
                 color: rgb(63, 61, 61);
                 padding: 10px;
+                display: inline-block;
                 font-size: 16px;
                 font-family: Didot;
                 min-width: 160px;
                 height: 40px;
                 border: none;
-                }
+            }
 
             .dropdown {
                 position: relative;
                 display: inline-block;
+                margin-right: 10px;
+                margin-left:10px;
             }
 
             .dropdown-content {
@@ -79,31 +82,28 @@
             </div>
             <a href="results.html"><button type="submit" class="btn btn-info"> Begin </button></a>
         </form>
-        <div style="text-align:center;">
-        <div class="dropdown">
-          <button id="cat" class="dropbtn">Select Category</button>
-          <div class="dropdown-content">
-            <a href="#" onclick="myFunction('Health')">Health</a>
-            <a href="#" onclick="myFunction('Sports')">Sports</a>
-            <a href="#" onclick="myFunction('Education')">Education</a>
-            <a href="#" onclick="myFunction('Technology')">Technology</a>
-            <a href="#" onclick="myFunction('Entertainment')">Entertainment</a>
-            <a href="#" onclick="myFunction('Politics')">Politics</a>
-            <a href="#" onclick="myFunction('Religion and Culture')">Religion and Culture</a>
-          </div>
-          <script>
-              function myFunction(x){
-                  document.getElementById("cat").innerHTML = x;
-              }
-          </script>
-        </div>
-        <div class="dropdown">
-            <button id="mood" class="dropbtn">Mood Preference</button>
-            <div class="dropdown-content">
-            <a href="#" onclick="myFunction('Inspirational')">Inspirational</a>
-            <a href="#" onclick="myFunction('Funny')">Funny</a>
-            <a href="#" onclick="myFunction('Satirical')">Satirical</a>
-            <a href="#" onclick="myFunction('Sensitive')">Sensitive</a>
+        <div align="center" style="text-align:center; display:inline-block; margin-left:35%;">
+            <div class="dropdown" style="float:left;">
+                <button id="cat" class="dropbtn">Select Category</button>
+                <div class="dropdown-content">
+                    <a href="#" onclick="myFunction('Health','cat')">Health</a>
+                    <a href="#" onclick="myFunction('Sports','cat')">Sports</a>
+                    <a href="#" onclick="myFunction('Education','cat')">Education</a>
+                    <a href="#" onclick="myFunction('Technology','cat')">Technology</a>
+                    <a href="#" onclick="myFunction('Entertainment','cat')">Entertainment</a>
+                    <a href="#" onclick="myFunction('Politics','cat')">Politics</a>
+                    <a href="#" onclick="myFunction('Religion and Culture','cat')">Religion and Culture</a>
+                </div>
+            </div>
+            <div class="dropdown" style="float:right;">
+                <button id="mood" class="dropbtn">Mood Preference</button>
+                    <div class="dropdown-content">
+                        <a href="#" onclick="myFunction('Inspirational','mood')">Inspirational</a>
+                        <a href="#" onclick="myFunction('Funny','mood')">Funny</a>
+                        <a href="#" onclick="myFunction('Satirical','mood')">Satirical</a>
+                        <a href="#" onclick="myFunction('Sensitive','mood')">Sensitive</a>
+                        
+                    </div>      
             </div>
             <script>
                 function myFunction(x){
@@ -132,5 +132,10 @@
             </script>
         </div>
         </div>
+        <script>
+            function myFunction(x,item){
+                document.getElementById(item).innerHTML = x;
+            }
+        </script>
     </body>
 </html>
