@@ -29,12 +29,16 @@ my_matrix = vectorizer.fit_transform([x[1] for x in documents]).transpose()
 #runs svd, can alter k but values mostly live in the space under 30
 words_compressed, _, docs_compressed = svds(my_matrix, k=30)
 docs_compressed = docs_compressed.transpose()
+print(docs_compressed.shape)
 
 
 #creates clusters of 15 vidoes based on the index of the input video
 docs_compressed = normalize(docs_compressed, axis = 1)
-def closest_projects(project_index_in, k = 15):
-    sims = docs_compressed.dot(docs_compressed[project_index_in,:])
+print(docs_compressed.shape)
+def closest_projects(project_index_in, docs_compressed, k = 15):
+    print(docs_compressed[project_index_in,:].shape)
+
+    sims = docs_compressed.dot(docs_compressed[project_index_in,:]) #fixmeh
     asort = np.argsort(-sims)[:k+1]
     return [(documents[i][0],sims[i]/sims[asort[0]]) for i in asort[1:]]
 
@@ -46,5 +50,3 @@ def extract_cluster_ratings(index):
     name=lst[1][0]
     index=findindex(data,name)
     return data[index]["url"]
-
-
