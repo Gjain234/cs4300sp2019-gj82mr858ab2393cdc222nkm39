@@ -15,8 +15,9 @@ with open("ted_main.json", encoding="utf8") as f:
 
 #given the data file and the title of the video, outputs the index that video is located at
 def findindex(data,url):
+    print(len(data))
     for x in range(len(data)):
-        if data[x]['url']== url:
+        if data[x]['name']== url:
             return x
 
 
@@ -27,26 +28,42 @@ my_matrix = vectorizer.fit_transform([x[1] for x in documents]).transpose()
 
 
 #runs svd, can alter k but values mostly live in the space under 30
-words_compressed, _, docs_compressed = svds(my_matrix, k=30)
+words_compressed, _, docs_compressed = svds(my_matrix, k=30) #number of dimensions the data lives in
 docs_compressed = docs_compressed.transpose()
-print(docs_compressed.shape)
+#print(docs_compressed.shape)
 
 
 #creates clusters of 15 vidoes based on the index of the input video
 docs_compressed = normalize(docs_compressed, axis = 1)
-print(docs_compressed.shape)
+#print(docs_compressed.shape)
 def closest_projects(project_index_in, docs_compressed, k = 15):
-    print(docs_compressed[project_index_in,:].shape)
-
-    sims = docs_compressed.dot(docs_compressed[project_index_in,:]) #fixmeh
+    #print(docs_compressed[project_index_in,:].shape)
+    y = docs_compressed[project_index_in,:].transpose() #(30,2550)
+    y = np.asmatrix(y)
+    print("y shape: ")
+    #print(y.shape)
+    y_new = docs_compressed[0]
+    print(y_new.shape)
+    #y.shape = (30,)
+    #print(docs_compressed.shape)
+    #print(y.shape)
+    sims = np.dot(docs_compressed, y_new)
+    print("yay we got thru")
+    #print(sims.shape)
+    #sims = docs_compressed.dot(y) #fixmeh
     asort = np.argsort(-sims)[:k+1]
     return [(documents[i][0],sims[i]/sims[asort[0]]) for i in asort[1:]]
 
 
 #function that takes in the closest_projects function and the index of the desirable video
 #outputs the url of the second video in the cluster
-def extract_cluster_ratings(index):
-    lst=closest_projects(index)
+def extract_cluster_ratings(data, index):
+    lst=closest_projects(index, docs_compressed)
+    print("lst size")
+    print(len(lst))
     name=lst[1][0]
-    index=findindex(data,name)
-    return data[index]["url"]
+    print("name size")
+    print(name)
+    i=findindex(data,name)
+    print(i)
+    return data[i]['url']

@@ -72,5 +72,5 @@ def search():
 		docs_compressed = normalize(docs_compressed, axis = 1)
 
 		cluster = closest_projects(idx, docs_compressed)
-		ec = extract_cluster_ratings(idx)
+		ec = extract_cluster_ratings(data2, idx)
 		return render_template('results.html', output_message=output_message, data=data, video_url = video_url)
