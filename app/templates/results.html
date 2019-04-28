@@ -95,7 +95,7 @@
         </div>
 	<form class="form-inline global-search">
         {% if data %}
-            {% for d in data[:4] %}
+            {% for rank in range(0,4) %}
                 <br>
             <br>
         <!-- <span class="arrow-right" href="#" onclick="next()"></span> 
@@ -105,12 +105,12 @@
             <div class="video-box" style:"text-align:center">
                 <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{video_url}}</p> -->
                 <iframe class="video"
-                src={{d[0]}}
+                src={{data[0][rank][0]}}
                 width="280" height="180"
                 frameborder="0" scrolling="no"></iframe><br><br>
-                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{d[0]}}</p>  -->
+                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{data[0][rank][0]}}</p>  -->
                 {% for i in range(1, 4)%}
-                <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{d[i]}}</p>
+                <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[0][rank][i]}}</p>
                 <br>
                 {% endfor %}
             </div> <br><br>
@@ -120,12 +120,12 @@
             <div class="video-box" style:"text-align:center">
                 <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{video_url}}</p> -->
                 <iframe class="video"
-                src={{d[0]}}
+                src={{data[1][rank][0]}}
                 width="280" height="180"
                 frameborder="0" scrolling="no"></iframe><br><br>
-                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{d[0]}}</p>  -->
+                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{data[1][rank][0]}}</p>  -->
                 {% for i in range(1, 4)%}
-                <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{d[i]}}</p>
+                <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[1][rank][i]}}</p>
                 <br>
                 {% endfor %}
             </div> <br><br>
@@ -135,12 +135,12 @@
             <div class="video-box" style:"text-align:center">
                 <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{video_url}}</p> -->
                 <iframe class="video"
-                src={{d[0]}}
+                src={{data[2][rank][0]}}
                 width="280" height="180"
                 frameborder="0" scrolling="no"></iframe><br><br>
-                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{d[0]}}</p>  -->
+                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{data[2][rank][0]}}</p>  -->
                 {% for i in range(1, 4)%}
-                <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{d[i]}}</p>
+                <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[2][rank][i]}}</p>
                 <br>
                 {% endfor %}
             </div> <br><br>

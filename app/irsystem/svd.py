@@ -45,9 +45,10 @@ def closest_projects(project_index_in, docs_compressed, k = 15):
     asort = np.argsort(-sims)[:k+1]
     return [(documents[i][0],sims[i]/sims[asort[0]]) for i in asort[1:]]
 
-def moodvid(lst,mood,data):
+def moodvid(lst,mood,data): #returning 1 video
     mx=0
     vid=0;
+    vid_mood_lst = []
     for x in range(len(lst)):
         name=lst[x][0]
         index=findindex(data,name)
@@ -55,10 +56,14 @@ def moodvid(lst,mood,data):
         for el in range(len(ratings)):
             if ratings[el]['name']==mood:
                 count= ratings[el]['count']
-                if count > mx:
-                    mx=count
-                    vid=index
-    return vid
+                vid_mood_lst.append((index,count))
+                print("ACCUMULATING")
+                print(vid_mood_lst)
+                # if count > mx:
+                #     mx=count
+                #     vid=index
+        sorted_vid_mood_lst = sorted(vid_mood_lst, key=lambda tup: tup[1])
+    return sorted_vid_mood_lst
 
 #function that takes in the closest_projects function and the index of the desirable video
 #outputs the url of the second video in the cluster
@@ -68,3 +73,18 @@ def extract_cluster_ratings(data, index, mood):
     #i=findindex(data,name)
     i = moodvid(lst, mood, data)
     return data[i]['url']
+
+#returns top 10 sorted results using SVD not including top video
+def top_svd(data, index, mood):
+    lst=closest_projects(index, docs_compressed)
+    #i = moodvid(lst, mood, data)
+    ranked_vids = moodvid(lst,mood,data)
+    print("ranked_vids size")
+    print(len(ranked_vids))
+    top_vids = []
+    for i in range(10):
+        index = ranked_vids[i][0]
+        temp_url = data[index]['url']
+        embed_url = "https://embed.ted.com/talks/" + temp_url[26:]
+        top_vids.append([embed_url, i-1, data[i]['title'], data[i]['description']])
+    return top_vids

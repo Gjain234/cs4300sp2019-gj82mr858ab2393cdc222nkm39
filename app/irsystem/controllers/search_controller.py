@@ -46,7 +46,7 @@ def search():
 		output_message = query
 		prompt1 = process_single_prompt(request.url)
 		#video_url= "https://embed.ted.com/talks/colin_powell_kids_need_structure"
-		data = combined_search(prompt1)
+		topic_vids = combined_search(prompt1)
                 # data = combined_search(prompt1)
 		video_url = get_prompt2_video_link(query)
 
@@ -67,5 +67,8 @@ def search():
 
 		cluster = closest_projects(idx, docs_compressed)
 		mood = mood_q.pop()
-		ec = extract_cluster_ratings(data2, idx, mood)
+		#ec = extract_cluster_ratings(data2, idx, mood)
+		mood_vids = top_svd(data2, idx, mood)
+		lifestyle_vids = comment_search(query)
+		data = [mood_vids, topic_vids, lifestyle_vids]
 		return render_template('results.html', output_message=output_message, data=data, video_url = video_url)
