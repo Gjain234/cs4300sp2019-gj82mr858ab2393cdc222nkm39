@@ -67,3 +67,14 @@ def extract_cluster_ratings(data, index):
     i=findindex(data,name)
     print(i)
     return data[i]['url']
+
+#returns top 10 sorted results using SVD not including top video
+def top_svd(data, index):
+    lst=closest_projects(index, docs_compressed)
+    top_vids = []
+    for i in range(1,11):
+        index = findindex(data, lst[i][0])
+        temp_url = data[i]['url']
+        embed_url = "https://embed.ted.com/talks/" + temp_url[26:]
+        top_vids.append([embed_url, i-1, data[i]['title'], data[i]['description']])
+    return top_vids
