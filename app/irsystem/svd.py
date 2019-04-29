@@ -84,7 +84,7 @@ def top_svd(data, index, mood):
     top_vids = []
     for i in range(10):
         ind = ranked_vids[i][0]
-        temp_url = data[index]['url']
+        temp_url = data[ind]['url']
         embed_url = "https://embed.ted.com/talks/" + temp_url[26:]
         top_vids.append([embed_url, i-1, data[ind]['title'], data[ind]['description']])
     return top_vids
