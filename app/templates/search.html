@@ -5,9 +5,9 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Codystar|Glass+Antiqua|Kodchasan|Major+Mono+Display|Megrim|Poiret+One|Raleway+Dots|Sacramento|Srisakdi" rel="stylesheet">    <body>
-        <div class="topcorner">
-            <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative; top:560px; left:-180">Project: {{ name }}</p>
-            <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative; top:560px; left: -300">Creators: ({{ netid }})</p>
+        <div class="group">
+            <span style="font-size: 17px; font-family: 'Poiret One',cursive; color: white">Project: {{ name }} &nbsp&nbsp||&nbsp&nbsp </span>
+            <span style="font-size: 17px; font-family: 'Poiret One',cursive; color: white">Creators: ({{ netid }})</span>
         </div>
         <style>
             body {
@@ -22,6 +22,75 @@
                 background-size: cover;
                 opacity: 1;
                 transition: 1s opacity;
+            }
+
+            .group {
+                position: absolute;
+                bottom: 0%;
+                padding-top: 10px;
+                padding-bottom: 30px;
+                background-color: rgb(31, 30, 30);
+                width:100%;
+                height:5%;
+                text-align: center;
+            }
+
+            .icon-small{
+                height: 40px;  
+                width: 40px; 
+                color: rgb(249, 246, 248);
+                background-color: rgba(255, 255, 255, 0.911);
+                position: absolute;
+                top:5%;
+                left:3%;
+                cursor: pointer;
+                border-radius: 10%;
+                text-align: center;
+            }
+
+            .icon-bulb{
+                height: 40px;  
+                width: 40px; 
+                color: rgb(249, 246, 248);
+                background-color: rgba(255, 255, 255, 0.911);
+                position: absolute;
+                top:5%;
+                right:3%;
+                cursor: pointer;
+                border-radius: 10%;
+                text-align: center;
+            }
+
+            .info-box{
+                height:auto;
+                max-width:200px;
+                position:absolute;
+                top:5%;
+                left: 8%;
+                font-family: Didot;
+                font-weight:100;
+                font-size: 14px;
+                color: rgb(235, 230, 230);
+                display: none;
+                box-sizing: border-box;
+                border: 0.2px solid white;
+                padding: 10px;  
+            }
+
+            .info-box-bulb{
+                height:auto;
+                max-width:200px;
+                position:absolute;
+                top:5%;
+                right: 8%;
+                font-family: Didot;
+                font-weight:100;
+                font-size: 14px;
+                color: rgb(235, 230, 230);
+                display: none;
+                box-sizing: border-box;
+                border: 0.2px solid white;
+                padding: 10px;  
             }
 
             .dropbtn {
@@ -69,16 +138,22 @@
             .dropdown:hover .dropbtn {background-color: #fc8181;}
         </style>
         <form class="form-inline global-search">
-            <h1 style="font-size: 70px; font-family: 'Poiret One',cursive; color: #f86450; position:relative; top:-80px; left:150">
+            <div style="display: inline-block;"><img class="icon-small" onmouseover="showInfo('info')" onmouseout="hideInfo('info')" src="https://sitejerk.com/images/question-mark-icon-png-transparent-17.png">
+                <span class="info-box" id="info">Share your current Goal, a Category* it relates to, and the Mood* that suits your style of learning, and let's get started! </span>
+            </div>
+            <div style="display: inline-block;"><img class="icon-bulb" onmouseover="showInfo('bulb')" onmouseout="hideInfo('bulb')" src="https://image.flaticon.com/icons/svg/68/68587.svg">
+                <span class="info-box-bulb" id="bulb">Our core belief is that any goal can be achieved when broken into smaller steps.</span>
+            </div>
+            <h1 style="font-size: 70px; font-family: 'Poiret One',cursive; color: #f86450; position:relative; top:-90px; left:150">
                 get starTED
             </h1>
-            <h2 style="font-size: 22px; font-family: 'Srisakdi', cursive; color:white; position:relative; top:-30px">
+            <h2 style="font-size: 22px; font-family: 'Srisakdi', cursive; color:white; position:relative; top:-40px">
                     ...One Step Closer to Your Goals
             </h2>
             <br><br>
 
             <div class="form-group">
-                    <input id="input" type="text" name="search" class="form-control" placeholder="What's Your Goal?">
+                    <input id="input" type="text" name="search" class="form-control" placeholder="What's Your Goal? Ex. Swim Faster">
             </div>
             <a href="results.html"><button type="submit" class="btn btn-info"> Begin </button></a>
         </form>
@@ -136,6 +211,13 @@
         <script>
             function myFunction(x,item){
                 document.getElementById(item).innerHTML = x;
+            }
+            
+            function showInfo(i){
+                    document.getElementById(i).style.display="block"
+            }
+            function hideInfo(i){
+                    document.getElementById(i).style.display="none"
             }
         </script>
     </body>

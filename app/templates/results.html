@@ -22,6 +22,17 @@
             text-align: center;
             width: 200px;
         }
+
+        .box{
+            height:auto;
+            max-width:auto;
+            font-weight:100;
+            display: none;
+            box-sizing: border-box;
+            border: 0.2px solid white;
+            padding: 10px;  
+        }
+
         .text-vid1 {
             height: relative;
             scroll-behavior: auto;
@@ -124,7 +135,9 @@
             </script>  
         <div>
             <li class="topcorner"><a href="?search.html" class="btn btn-info"> Back to Search </a></li>
-            <h1 class="top" id= "results" style="text-align:center;font-family:Codystar; color:rgb(245, 115, 110);">Showing Results for: {{output_message}}</h1>        
+            <h1 class="top" id= "results" style="text-align:center;font-family:Codystar; color:rgb(245, 115, 110); position:absolute; top:10%; left:15%; right:15%;">Showing Results for: {{output_message}}</h1>        
+            <span class="top" id= "results" style="cursor:pointer; text-align:center;font-family:Didot; font-size: 15px; color:rgb(180, 154, 184); position:absolute; top: 20%; left:15%; box-sizing: border-box;border: 1px solid rgb(168, 166, 166);padding: 10px;">Mood: {{mood}}</span>
+            <span class="top" id= "results" style="cursor:pointer; text-align:center;font-family:Didot; font-size:15px; color:rgb(180, 154, 184); position:absolute; top: 20%; right:15%; box-sizing: border-box;border: 1px solid rgb(148, 147, 147);padding: 10px;">Category: {{category}}</span>        
         </div>        
         <br>
 	<form class="form-inline global-search">
@@ -143,7 +156,7 @@
                 <div id="t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left; text-overflow:ellipsis;">{{data[0][0][i]}}</div>
                 <br>
                 {% endfor %}
-            </div> <br><br>
+            </div> 
 
             <div class="video-box-mood" id= "vidbox2mood" style:"text-align:center;text-overflow:ellipsis;">
                     <iframe id= "frame1" class="video"
@@ -154,7 +167,7 @@
                     <div id="t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;text-overflow:ellipsis;">{{data[0][1][i]}}</div>
                     <br>
                     {% endfor %}
-                </div> <br><br>
+                </div>
 
             <div class="video-box-mood" id= "vidbox3mood" style:"text-align:center;text-overflow:ellipsis;">
                     <iframe id= "frame1" class="video"
@@ -165,7 +178,7 @@
                     <div id="t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;text-overflow:ellipsis;">{{data[0][2][i]}}</div>
                     <br>
                     {% endfor %}
-                </div> <br><br>
+                </div>
             <div class="arrow-down" align="center" href="#" onclick="plus(1, 'mood')"></div>                     
             </div>
         </div>
@@ -183,7 +196,7 @@
                 <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[1][0][i]}}</p>
                 <br>
                 {% endfor %}
-            </div> <br><br>
+            </div> 
 
             <div class="video-box-skill" id="vidbox2skill" style:"text-align:center">
                     <iframe class="video"
@@ -194,7 +207,7 @@
                     <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[1][1][i]}}</p>
                     <br>
                     {% endfor %}
-                </div> <br><br>
+                </div> 
 
             <div class="video-box-skill" id="vidbox3skill" style:"text-align:center">
                     <iframe class="video"
@@ -205,7 +218,7 @@
                     <p style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[1][2][i]}}</p>
                     <br>
                     {% endfor %}
-                </div> <br><br>
+                </div> 
             <div class="arrow-down" align="center" href="#" onclick="plus(1, 'skill')"></div>                     
         </div>
         </div>
@@ -223,7 +236,7 @@
                 <p id= "t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[2][0][i]}}</p>
                 <br>
                 {% endfor %}
-            </div> <br><br>
+            </div> 
 
             <div class="video-box-lifestyle" id="vidbox2lifestyle" style:"text-align:center">
                     <iframe class="video"
@@ -234,7 +247,7 @@
                     <p id= "t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[2][1][i]}}</p>
                     <br>
                     {% endfor %}
-                </div> <br><br>
+                </div>
 
             <div class="video-box-lifestyle" id="vidbox3lifestyle" style:"text-align:center">
                     <iframe class="video"
@@ -245,11 +258,10 @@
                     <p id= "t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[2][2][i]}}</p>
                     <br>
                     {% endfor %}
-            </div> <br><br>
+            </div> 
             <div class="arrow-down" align="center" href="#" onclick="plus(1, 'lifestyle')"></div>                     
         </div>
-        </div>
-    <br><br><br><br><br><br>      
+        </div>    
         </form>
         <style>
         body {
@@ -296,7 +308,7 @@
                     s0="vidbox3" + category;
                 }
                 // x[slideIndex-1].slide.display="block";
-                document.getElementById(s0).style.display = "block";
+                document.getElementById(s0).style.display = "inline-block";
             }
         </script>
     </body>
