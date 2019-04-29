@@ -8,6 +8,7 @@ import math
 
 transcripts = pd.read_csv('transcripts.csv')
 talk_information = pd.read_csv('ted_main.csv')
+comments = pickle.load(open("comments_plain.pkl", "rb"))
 
 def tokenize(text):
     """Returns a list of words that make up the text.
@@ -60,6 +61,8 @@ transcript_low_norms = pickle.load(open("transcript_low_norms.pkl", "rb"))
 availComms = pickle.load(open("availComms.pkl", "rb"))
 availTalks = pickle.load(open("availTalks.pkl", "rb"))
 
+proc_tags = pickle.load(open("proc_tags.pkl", "rb"))
+
 def index_search(query, index, idf, doc_norms, tokenize_method):
     _id = 0
     ret = []
@@ -69,8 +72,13 @@ def index_search(query, index, idf, doc_norms, tokenize_method):
         _id_ref[temp[_id]] = _id
         ret.append((0,temp[_id]))
         _id += 1
-
-    q = tokenize_method(query.lower())
+    rem = {'i','want','to','learn','about','and','how','the','a'}
+    temp2 = tokenize_method(query.lower())
+    q = []
+    for word in temp2:
+        if word not in rem:
+            q.append(word)
+    
     q_comp = {}
     for w in q:
         if q_comp.get(w) == None:
@@ -130,12 +138,13 @@ def get_prompt2_video_link(query):
 
 def combined_search(query):
     expan = index_search(query, description_low_inv, description_low_idf, description_low_norms,tokenize)
-    query += " "
     for res in expan[:5]:
+        query += " "
         #print(talk_information['tags'][res[1]])
-        for tags in talk_information['description'][res[1]]:
-            query += tags
-    print(query)
+        q = talk_information['tags'][res[1]].strip(']').strip('[').strip(',').strip('\'').split('\', \'')
+        for tags in q:
+            query += tags + " "
+    #print(query)
     t = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
     d = index_search(query, description_inv, description_idf, description_norms,tokenize)
     i_t = {i:s for (s,i) in t}
@@ -157,15 +166,19 @@ def combined_search(query):
     #print(i_t)
     return r
     
-def comment_search(query):
-    r = index_search(query, comment_inv, comment_idf, comment_norms,tokenize)
+def comment_search(query,topic):
+    query += ' '
+    for q in proc_tags[topic]:
+        query += q + ' '
+    print(query)
+    r = index_search(query, comment_inv, comment_idf, comment_norms,tokenize)  
     ret = []
-    print(r)
+    #print(r)
     for score, msg_id in r[:10]:
         if availComms.get(msg_id) != None:
             dataset_talk = talk_information['url'][msg_id]
             talk_segment = dataset_talk[26:]
             temp = "https://embed.ted.com/talks/" + talk_segment
             ret.append([temp, score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
-    print(ret)
+    #print(ret)
     return ret
