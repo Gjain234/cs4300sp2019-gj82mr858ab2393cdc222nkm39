@@ -78,7 +78,7 @@ def index_search(query, index, idf, doc_norms, tokenize_method):
     for word in temp2:
         if word not in rem:
             q.append(word)
-    
+
     q_comp = {}
     for w in q:
         if q_comp.get(w) == None:
@@ -161,17 +161,17 @@ def combined_search(query):
         dataset_talk = talk_information['url'][msg_id]
         talk_segment = dataset_talk[26:]
         temp = "https://embed.ted.com/talks/" + talk_segment
-        r.append([temp, score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
+        r.append([temp, talk_information['title'][msg_id], talk_information['description'][msg_id]]) #fixme
     #print(r)
     #print(i_t)
     return r
-    
+
 def comment_search(query,topic):
     query += ' '
     for q in proc_tags[topic]:
         query += q + ' '
     print(query)
-    r = index_search(query, comment_inv, comment_idf, comment_norms,tokenize)  
+    r = index_search(query, comment_inv, comment_idf, comment_norms,tokenize)
     ret = []
     #print(r)
     for score, msg_id in r[:10]:
@@ -179,6 +179,6 @@ def comment_search(query,topic):
             dataset_talk = talk_information['url'][msg_id]
             talk_segment = dataset_talk[26:]
             temp = "https://embed.ted.com/talks/" + talk_segment
-            ret.append([temp, score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
+            ret.append([temp, talk_information['title'][msg_id], talk_information['description'][msg_id]]) #fixme
     #print(ret)
     return ret

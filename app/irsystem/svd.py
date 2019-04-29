@@ -57,12 +57,15 @@ def moodvid(lst,mood,data): #returning 1 video
             if ratings[el]['name']==mood:
                 count= ratings[el]['count']
                 vid_mood_lst.append((index,count))
-                print("ACCUMULATING")
-                print(vid_mood_lst)
+                #print("ACCUMULATING")
+
+                #print(vid_mood_lst)
                 # if count > mx:
                 #     mx=count
                 #     vid=index
         sorted_vid_mood_lst = sorted(vid_mood_lst, key=lambda tup: tup[1])
+        print("FINAL VID MOOD LIST: ")
+        print(sorted_vid_mood_lst)
     return sorted_vid_mood_lst
 
 #function that takes in the closest_projects function and the index of the desirable video
@@ -86,5 +89,5 @@ def top_svd(data, index, mood):
         ind = ranked_vids[i][0]
         temp_url = data[ind]['url']
         embed_url = "https://embed.ted.com/talks/" + temp_url[26:]
-        top_vids.append([embed_url, i-1, data[ind]['title'], data[ind]['description']])
+        top_vids.append([embed_url, data[ind]['title'], data[ind]['description']]) #fix me
     return top_vids
