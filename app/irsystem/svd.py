@@ -23,13 +23,13 @@ def findindex(data,url):
 
 
 #creates tf-idf matrix, can alter max_df and min_df
-vectorizer = TfidfVectorizer(stop_words = 'english', max_df = .8,
-                            min_df = 40)
+vectorizer = TfidfVectorizer(stop_words = 'english', max_df = .75,
+                            min_df = 50)
 my_matrix = vectorizer.fit_transform([x[1] for x in documents]).transpose()
 
 
 #runs svd, can alter k but values mostly live in the space under 30
-words_compressed, _, docs_compressed = svds(my_matrix, k=30) #number of dimensions the data lives in
+words_compressed, _, docs_compressed = svds(my_matrix, k=40) #number of dimensions the data lives in
 docs_compressed = docs_compressed.transpose()
 #print(docs_compressed.shape)
 
