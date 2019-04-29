@@ -50,20 +50,20 @@ def search():
                 # data = combined_search(prompt1)
 		video_url = get_prompt2_video_link(query)
 
-		'''S  V   D '''
-		with open("ted_main.json", encoding="utf8") as f:
-			documents = []
-			data2=json.load(f)
-			for x in data2:
-				documents.append((x["name"], x["description"]))
-		idx = findindex(data2, video_url)
-		vectorizer = TfidfVectorizer(stop_words = 'english', max_df = .8,
-		                            min_df = 40)
-		my_matrix = vectorizer.fit_transform([x[1] for x in documents]).transpose()
-		words_compressed, _, docs_compressed = svds(my_matrix, k=30)
-		#words_compressed = normalize(words_compressed, axis=1) #fixmeh
-		docs_compressed = docs_compressed.transpose()
-		docs_compressed = normalize(docs_compressed, axis = 1)
+		# '''S  V   D '''
+		# with open("ted_main.json", encoding="utf8") as f:
+		# 	documents = []
+		# 	data2=json.load(f)
+		# 	for x in data2:
+		# 		documents.append((x["name"], x["description"]))
+		# idx = findindex(data2, video_url)
+		# vectorizer = TfidfVectorizer(stop_words = 'english', max_df = .8,
+		#                             min_df = 40)
+		# my_matrix = vectorizer.fit_transform([x[1] for x in documents]).transpose()
+		# # words_compressed, _, docs_compressed = svds(my_matrix, k=30)
+		# # words_compressed = normalize(words_compressed, axis=1) #fixmeh
+		# docs_compressed = docs_compressed.transpose()
+		# docs_compressed = normalize(docs_compressed, axis = 1)
 
 		cluster = closest_projects(idx, docs_compressed)
 		mood = mood_q.pop()
