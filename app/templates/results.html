@@ -5,11 +5,24 @@
         <link href="https://fonts.googleapis.com/css?family=Cinzel+Decorative|Codystar|Glass+Antiqua|Kodchasan|Major+Mono+Display|Megrim|Poiret+One|Raleway+Dots|Sacramento|Srisakdi|Luckiest+Guy" rel="stylesheet"><body>
     </head>
     <style>
+
+        .theme {
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 40px;
+            position: absolute;
+            color:antiquewhite;
+            margin-bottom: -110px;
+            padding-right: 75px;
+            padding-left: 60px;
+            margin-top: -130px;
+            text-align: center;
+            width: 200px;
+        }
         .text-vid1 {
             height: relative;
             scroll-behavior: auto;
             align-content: center;
-            margin-left: 30px;
+            margin-right: 50px;
             border-radius: 20px;
             background-color: white;
         }
@@ -17,7 +30,7 @@
             height: relative;
             scroll-behavior: auto;
             align-content: right;
-            margin-left: 30px;
+            margin-right: 50px;
             border-radius: 20px;
             background-color: white;
         }
@@ -25,28 +38,15 @@
             height: relative;
             scroll-behavior: auto;
             align-content: left;
-            margin-left: 30px;
             border-radius: 20px;
             background-color: white;
         }
 
         .playlist {
-            background-color: rgba(255, 255, 255, 0.952);
+            background-color: rgb(24, 23, 23);
             border-radius: 20px;
-            padding-left: 20px;
-            padding-right: 20px;
-            padding-top: 20px;
-            padding-bottom: 20px;
-        }
-
-        .theme {
-            font-family: 'Luckiest Guy', cursive;
-            font-size: 40px;
-            color:antiquewhite;
-            padding-right: 75px;
-            padding-left: 60px;
-            text-align: center;
-            width: 200px;
+            padding-top: 100px;
+            position: relative;
         }
         .video {
             margin: 0 auto;
@@ -61,26 +61,30 @@
             align-content: center;
         }
 
-        .arrow-right {
-            width: 0;
-            height: 0;
-            float:right;
+        .arrow-up {
+            width: 0; 
+            height: 0; 
+            position: absolute;
+            top: 30;
+            right:42%;
             cursor: pointer;
-            border-bottom-right-radius: 20px;
-            border-top: 50px solid transparent;
-            border-left: 60px solid rgb(243, 110, 110);
-            border-bottom: 50px solid transparent;
-          }
-
-        .arrow-left {
-            width: 0;
-            height: 0;
-            cursor: pointer;
-            float:left;
-            border-top: 50px solid transparent;
-            border-right: 60px solid rgb(243, 110, 110);
-            border-bottom: 50px solid transparent;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-bottom: 40px solid rgb(243, 110, 110);
         }
+
+        .arrow-down {
+            width: 0; 
+            height: 0; 
+            bottom: -70;
+            right:42%;
+            position:absolute;
+            cursor: pointer;
+            border-left: 40px solid transparent;
+            border-right: 40px solid transparent;
+            border-top: 40px solid rgb(243, 110, 110);
+        }
+
     </style>
     <body>
         <div>
@@ -88,22 +92,29 @@
             <h1 class="top" style="text-align:center;font-family:Codystar; color:rgb(245, 115, 110);">Showing Results for: {{output_message}}</h1>        
         </div>        
         <br>
-        <div align="center" style="text-align: center; display:inline-block; justify-content:center; padding-left:150px">
+        <!-- <div align="center" style="text-align: center; display:inline-block; justify-content:center; padding-left:150px">
             <span class="theme">Mood Setting</span>               
             <span class="theme">Skill</span>
             <span class="theme">Lifestyle</span>
-        </div>
+        </div> -->
+        <script>
+            function next(n){
+                n=n+1;
+                return n+1;
+            }
+        </script>
 	<form class="form-inline global-search">
         {% if data %}
             {% for rank in range(0,4) %}
                 <br>
             <br>
-        <!-- <span class="arrow-right" href="#" onclick="next()"></span> 
-        <span class="arrow-left" href="#" onclick="next()"></span>          -->
+        <!-- <span class="arrow-up" href="#" onclick="next()"></span> 
+        <span class="arrow-down" href="#" onclick="next()"></span>     -->
         <div class="playlist">
-        <div class="text-vid1">
+        <div class="theme" align="center">MoodSet</div>  
+        <div class="arrow-up" align="center" href="#" onclick="next(n)"></div>         
+        <div class="text-vid1">                 
             <div class="video-box" style:"text-align:center">
-                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{video_url}}</p> -->
                 <iframe class="video"
                 src={{data[0][rank][0]}}
                 width="280" height="180"
@@ -114,11 +125,15 @@
                 <br>
                 {% endfor %}
             </div> <br><br>
+         <div class="arrow-down" align="center" href="#"></div>         
         </div>
+        </div>     
 
+        <div class="playlist">
+        <div class="theme" align="center" style="padding-left:30%;">Skill</div>    
         <div class="text-vid2">
+            <div class="arrow-up" align="center" href="#"></div>                         
             <div class="video-box" style:"text-align:center">
-                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{video_url}}</p> -->
                 <iframe class="video"
                 src={{data[1][rank][0]}}
                 width="280" height="180"
@@ -129,11 +144,15 @@
                 <br>
                 {% endfor %}
             </div> <br><br>
+            <div class="arrow-down" align="center" href="#"></div>                     
+        </div>
         </div>
 
+        <div class="playlist">
+        <div class="theme" align="center">Lifestyle</div>  
+        <div class="arrow-up" align="center" href="#"></div>                 
         <div class="text-vid3">
             <div class="video-box" style:"text-align:center">
-                <!-- <p style="font-size: 17px; font-family: 'Poiret One',cursive; color: white; position:relative;text-align:left;">{{video_url}}</p> -->
                 <iframe class="video"
                 src={{data[2][rank][0]}}
                 width="280" height="180"
@@ -144,12 +163,10 @@
                 <br>
                 {% endfor %}
             </div> <br><br>
+            <div class="arrow-down" align="center" href="#"></div>                     
         </div>
-    </div>
-    <br><br>
-
-            {% endfor %}
-        {% endif %}
+        </div>
+    <br><br><br><br><br><br>
         </form>
         <style>
         body {
