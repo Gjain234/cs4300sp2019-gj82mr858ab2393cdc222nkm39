@@ -42,6 +42,12 @@ transcript_inv = pickle.load(open("transcript_inv.pkl", "rb"))
 description_norms = pickle.load(open("description_norms.pkl", "rb"))
 transcript_norms = pickle.load(open("transcript_norms.pkl", "rb"))
 
+comment_idf = pickle.load(open("comment_idf.pkl", "rb"))
+
+comment_inv = pickle.load(open("comment_inv.pkl", "rb"))
+
+comment_norms = pickle.load(open("comment_norms.pkl", "rb"))
+
 description_low_idf = pickle.load(open("description_low_idf.pkl", "rb"))
 transcript_low_idf = pickle.load(open("transcript_low_idf.pkl", "rb"))
 
@@ -51,6 +57,7 @@ transcript_low_inv = pickle.load(open("transcript_low_inv.pkl", "rb"))
 description_low_norms = pickle.load(open("description_low_norms.pkl", "rb"))
 transcript_low_norms = pickle.load(open("transcript_low_norms.pkl", "rb"))
 
+availComms = pickle.load(open("availComms.pkl", "rb"))
 availTalks = pickle.load(open("availTalks.pkl", "rb"))
 
 def index_search(query, index, idf, doc_norms, tokenize_method):
@@ -149,5 +156,16 @@ def combined_search(query):
     #print(r)
     #print(i_t)
     return r
-
-
+    
+def comment_search(query):
+    r = index_search(query, comment_inv, comment_idf, comment_norms,tokenize)
+    ret = []
+    print(r)
+    for score, msg_id in r[:10]:
+        if availComms.get(msg_id) != None:
+            dataset_talk = talk_information['url'][msg_id]
+            talk_segment = dataset_talk[26:]
+            temp = "https://embed.ted.com/talks/" + talk_segment
+            ret.append([temp, score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
+    print(ret)
+    return ret
