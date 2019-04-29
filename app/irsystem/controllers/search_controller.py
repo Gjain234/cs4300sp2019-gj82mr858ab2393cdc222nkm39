@@ -71,4 +71,10 @@ def search():
 		mood_vids = top_svd(data2, idx, mood)
 		lifestyle_vids = comment_search(query,cat_q.pop().lower())
 		data = [mood_vids, topic_vids, lifestyle_vids]
+		print("mood_vids: ")
+		print(mood_vids)
+		print("mood_vids length: ")
+		print(len(mood_vids))
+		print("mood_vids 0 index: ")
+		print(mood_vids[0])
 		return render_template('results.html', output_message=output_message, data=data, video_url = video_url, n=0)
