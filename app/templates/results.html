@@ -60,21 +60,26 @@
         }
         .video-box-mood {
             width:280px;
-            height:180px;
+            height:300px;
+            top:0;
             border-radius: 15px;
             align-content: center;
+            text-overflow: ellipsis;
+            overflow: hidden;
         }
 
         .video-box-skill {
             width:280px;
-            height:180px;
+            height:300px;
+            top:0;
             border-radius: 15px;
             align-content: center;
         }
 
         .video-box-lifestyle {
             width:280px;
-            height:180px;
+            height:300px;
+            top:0;
             border-radius: 15px;
             align-content: center;
         }
@@ -127,48 +132,48 @@
             <br>
         <div class="playlist" id="p1">
         <div class="theme" align="center" id="moodset">MoodSet</div>  
-        <div class="arrow-up" type = "button" id="moodup" align="center" href="#" onclick="plus(1, 'mood')"></div>         
+        <div class="arrow-up" type = "button" id="moodup" align="center" href="#" onclick="plus(-1, 'mood')"></div>         
         <div class="text-vid1" id="vid1">
-            <div class="video-box-mood" id= "vidbox1mood" style:"text-align:center">
+            <div class="video-box-mood" id= "vidbox1mood" style:"text-align:center;text-overflow:ellipsis;">
                 <iframe id= "frame1" class="video"
                 src={{data[0][0][0]}}
                 width="280" height="180"
-                frameborder="0" scrolling="yes"></iframe><br><br>
+                frameborder="0" scrolling="no"></iframe><br><br>
                 {% for i in range(1, 4)%}
-                <p id="t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[0][0][i]}}</p>
+                <div id="t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left; text-overflow:ellipsis;">{{data[0][0][i]}}</div>
                 <br>
                 {% endfor %}
             </div> <br><br>
 
-            <div class="video-box-mood" id= "vidbox2mood" style:"text-align:center">
+            <div class="video-box-mood" id= "vidbox2mood" style:"text-align:center;text-overflow:ellipsis;">
                     <iframe id= "frame1" class="video"
                     src={{data[0][1][0]}}
                     width="280" height="180"
-                    frameborder="0" scrolling="yes"></iframe><br><br>
+                    frameborder="0" scrolling="no"></iframe><br><br>
                     {% for i in range(1, 4)%}
-                    <p id="t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[0][1][i]}}</p>
+                    <div id="t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;text-overflow:ellipsis;">{{data[0][1][i]}}</div>
                     <br>
                     {% endfor %}
                 </div> <br><br>
 
-            <div class="video-box-mood" id= "vidbox3mood" style:"text-align:center">
+            <div class="video-box-mood" id= "vidbox3mood" style:"text-align:center;text-overflow:ellipsis;">
                     <iframe id= "frame1" class="video"
                     src={{data[0][2][0]}}
                     width="280" height="180"
-                    frameborder="0" scrolling="yes"></iframe><br><br>
+                    frameborder="0" scrolling="no"></iframe><br><br>
                     {% for i in range(1, 4)%}
-                    <p id="t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[0][2][i]}}</p>
+                    <div id="t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;text-overflow:ellipsis;">{{data[0][2][i]}}</div>
                     <br>
                     {% endfor %}
                 </div> <br><br>
-            <div class="arrow-down" align="center" href="#" onclick="plus(-1), 'mood'"></div>        
-        </div>
+            <div class="arrow-down" align="center" href="#" onclick="plus(1, 'mood')"></div>                     
+            </div>
         </div>
 
         <div class="playlist">
         <div class="theme" align="center" style="padding-left:30%;">Skill</div>    
         <div class="text-vid2">
-            <div class="arrow-up" align="center" href="#" onclick="plus(1, 'skill')"></div>                         
+            <div class="arrow-up" align="center" href="#" onclick="plus(-1, 'skill')"></div>                         
             <div class="video-box-skill" id="vidbox1skill" style:"text-align:center">
                 <iframe class="video"
                 src={{data[1][0][0]}}
@@ -201,47 +206,47 @@
                     <br>
                     {% endfor %}
                 </div> <br><br>
-            <div class="arrow-down" align="center" href="#" onclick="plus(-1, 'skill')"></div>                     
+            <div class="arrow-down" align="center" href="#" onclick="plus(1, 'skill')"></div>                     
         </div>
         </div>
 
         <div class="playlist">
         <div class="theme" align="center">Lifestyle</div>  
-        <div class="arrow-up" align="center" href="#" onclick="plus(1, 'lifestyle')"></div>                 
+        <div class="arrow-up" align="center" href="#" onclick="plus(-1, 'lifestyle')"></div>                 
         <div class="text-vid3">
             <div class="video-box-lifestyle" id= "vidbox1lifestyle" style:"text-align:center">
                 <iframe class="video"
-                src={{data[2][n][0]}}
+                src={{data[2][0][0]}}
                 width="280" height="180"
                 frameborder="0" scrolling="no"></iframe><br><br>
                 {% for i in range(1, 4)%}
-                <p id= "t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[2][n][i]}}</p>
+                <p id= "t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[2][0][i]}}</p>
                 <br>
                 {% endfor %}
             </div> <br><br>
 
             <div class="video-box-lifestyle" id="vidbox2lifestyle" style:"text-align:center">
                     <iframe class="video"
-                    src={{data[2][n][0]}}
+                    src={{data[2][1][0]}}
                     width="280" height="180"
                     frameborder="0" scrolling="no"></iframe><br><br>
                     {% for i in range(1, 4)%}
-                    <p id= "t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[2][n][i]}}</p>
+                    <p id= "t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[2][1][i]}}</p>
                     <br>
                     {% endfor %}
                 </div> <br><br>
 
             <div class="video-box-lifestyle" id="vidbox3lifestyle" style:"text-align:center">
                     <iframe class="video"
-                    src={{data[2][n][0]}}
+                    src={{data[2][2][0]}}
                     width="280" height="180"
                     frameborder="0" scrolling="no"></iframe><br><br>
                     {% for i in range(1, 4)%}
-                    <p id= "t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[2][n][i]}}</p>
+                    <p id= "t1" style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;">{{data[2][2][i]}}</p>
                     <br>
                     {% endfor %}
             </div> <br><br>
-            <div class="arrow-down" align="center" href="#" onclick="plus(-1, 'lifestyle')"></div>                     
+            <div class="arrow-down" align="center" href="#" onclick="plus(1, 'lifestyle')"></div>                     
         </div>
         </div>
     <br><br><br><br><br><br>      
@@ -265,7 +270,7 @@
 
             function showVideoMoodDivs(n, category){
                 var a;
-                var x = document.getElementsByClassName("video-box-mood");
+                var x = document.getElementsByClassName("video-box-"+category);
                 if (n > x.length) {
                     slideIndex = 1;
                 }
