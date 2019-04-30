@@ -151,16 +151,16 @@ def combined_search(query):
         dataset_talk = talk_information['url'][msg_id]
         talk_segment = dataset_talk[26:]
         temp = "https://embed.ted.com/talks/" + talk_segment
-        r.append([temp, score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
+        r.append([temp, talk_information['title'][msg_id], talk_information['description'][msg_id]])
     return r
 
-def qExpan(query):
-    expan = index_search(query, description_low_inv, description_low_idf, description_low_norms,tokenize)
-    query += " "
-    for res in expan[:5]:
-        for tags in talk_information['description'][res[1]]:
-            query += tags
-    return query
+#def qExpan(query):
+#    expan = index_search(query, description_low_inv, description_low_idf, description_low_norms,tokenize)
+#    query += " "
+#    for res in expan[:5]:
+#        for tags in talk_information['description'][res[1]]:
+#            query += tags
+#    return query
 
 
 def comment_search(query,topic):

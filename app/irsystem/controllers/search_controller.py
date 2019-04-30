@@ -48,8 +48,8 @@ def search():
 
 	else:
 		output_message = query
-		topic_vids = combined_search(qExpan(query))
-		video_url = get_prompt1_video_link(qExpan(query))
+		topic_vids = combined_search(query)
+		video_url = get_prompt1_video_link(query)
 
 		# '''S  V   D '''
 		idx = findindex_url(data2, video_url)
