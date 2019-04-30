@@ -79,8 +79,8 @@ def extract_cluster_ratings(data, index, mood):
     return data[i]['url']
 
 #returns top 10 sorted results using SVD not including top video
-def top_svd(data, index, mood):
-    lst=closest_projects(index, docs_compressed)
+def top_svd(data, index, mood, docs):
+    lst=closest_projects(index, docs)
     #i = moodvid(lst, mood, data)
     ranked_vids = moodvid(lst,mood,data)
     top_vids = []

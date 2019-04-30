@@ -69,7 +69,7 @@ def search():
 		if cat_q:
 			catg = cat_q
 		#ec = extract_cluster_ratings(data2, idx, mood)
-		mood_vids = top_svd(data2, idx, mood)
+		mood_vids = top_svd(data2, idx, mood, docs_compressed)
 		lifestyle_vids = comment_search(query,catg.lower())
 		data = [mood_vids, topic_vids, lifestyle_vids]
 		return render_template('results.html', output_message=output_message, data=data, video_url = video_url, n=0, mood=mood, category=catg)
