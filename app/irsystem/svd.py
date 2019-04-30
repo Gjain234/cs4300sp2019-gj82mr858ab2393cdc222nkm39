@@ -76,8 +76,6 @@ def closest_projects(project_index_in, docs_compressed, k = 15):
     return [(documents[i][0],sims[i]/sims[asort[0]]) for i in asort[1:]]
 
 def moodvid(lst,mood,data): #returning 1 video
-    mx=0
-    vid=0;
     vid_mood_lst = []
     for x in range(len(lst)):
         name=lst[x][0]

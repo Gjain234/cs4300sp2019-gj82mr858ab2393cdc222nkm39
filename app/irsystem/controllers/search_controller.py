@@ -9,8 +9,7 @@ import ast
 project_name = "Get StartTED: TED Talk Recommendation System"
 # net_id = "Andrea Benson ab2393, Caroline Chang cdc222, Nandita Mohan nkm39, Gauri Jain gj82, Michael Rivera mr858"
 net_id = "Andrea Benson, Caroline Chang, Nandita Mohan, Gauri Jain, Michael Rivera"
-cat_q = list()
-mood_q = list()
+
 
 def process_single_prompt(url): #functionality could be in a js file as well
 	url_parts = url.split('=')
@@ -23,13 +22,15 @@ def process_single_prompt(url): #functionality could be in a js file as well
 
 @irsystem.route('/', methods=['GET'])
 def search():
+	cat_q = None
+	mood_q = None
 	query = request.args.get('search')
 	cat = request.args.get('category')
 	if(cat!="Select Category" and cat!=None):
-		cat_q.append(cat)
+		cat_q=cat
 	mood = request.args.get('mood')
 	if(mood!="Mood Preference" and mood!=None):
-		mood_q.append(mood)
+		mood_q=mood
 	#rel = mood_q.pop()
 
 
@@ -68,8 +69,13 @@ def search():
 		docs_compressed = normalize(docs_compressed, axis = 1)
 
 		cluster = closest_projects(idx, docs_compressed)
-		mood = mood_q.pop()
-		catg = cat_q.pop()
+
+		mood = "Informative"
+		if mood_q:
+			mood = mood_q
+		catg = "Other"
+		if cat_q:
+			catg = cat_q
 		#ec = extract_cluster_ratings(data2, idx, mood)
 		mood_vids = top_svd(data2, idx, mood)
 		lifestyle_vids = comment_search(query,catg.lower())
