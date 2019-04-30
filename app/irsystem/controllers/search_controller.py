@@ -47,12 +47,8 @@ def search():
 		return render_template('search.html', name=project_name, netid=net_id, output_message=output_message, data=data)
 
 	else:
-		# https://www.ted.com/talks/kakenya_ntaiya_empower_a_girl_transform_a_community?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare
 		output_message = query
-		prompt1 = process_single_prompt(request.url)
-		#video_url= "https://embed.ted.com/talks/colin_powell_kids_need_structure"
 		topic_vids = combined_search(query)
-                # data = combined_search(prompt1)
 		video_url = get_prompt1_video_link(query)
 
 		# '''S  V   D '''
@@ -61,15 +57,12 @@ def search():
 		                            min_df = 40)
 		my_matrix = vectorizer.fit_transform([x[1] for x in documents]).transpose()
 		words_compressed, _, docs_compressed = svds(my_matrix, k=30)
-		# words_compressed = normalize(words_compressed, axis=1) #fixmeh
 		docs_compressed = docs_compressed.transpose()
 		docs_compressed = normalize(docs_compressed, axis = 1)
 
-		cluster = closest_projects(idx, docs_compressed)
 
 		query_category = cat_q.pop()
 		query_mood = mood_q.pop()
-		#ec = extract_cluster_ratings(data2, idx, mood)
 		mood_vids = top_svd(data2, idx, query_mood, docs_compressed)
 		lifestyle_vids = comment_search(query,query_category.lower())
 		data = [mood_vids, topic_vids, lifestyle_vids]

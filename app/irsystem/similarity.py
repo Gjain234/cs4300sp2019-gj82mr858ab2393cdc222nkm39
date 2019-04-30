@@ -140,10 +140,8 @@ def combined_search(query):
     expan = index_search(query, description_low_inv, description_low_idf, description_low_norms,tokenize)
     query += " "
     for res in expan[:5]:
-        #print(talk_information['tags'][res[1]])
         for tags in talk_information['description'][res[1]]:
             query += tags
-    print(query)
     d = index_search(query, description_inv, description_idf, description_norms,tokenize)
     i_d = {i:s for (s,i) in d}
     ret = []
