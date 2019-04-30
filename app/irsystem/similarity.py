@@ -174,10 +174,10 @@ def comment_search(query,topic):
     ret = []
     #print(r)
     for score, msg_id in r[:10]:
-        if availComms.get(msg_id) != None:
-            dataset_talk = talk_information['url'][msg_id]
-            talk_segment = dataset_talk[26:]
-            temp = "https://embed.ted.com/talks/" + talk_segment
-            ret.append([temp, talk_information['title'][msg_id], talk_information['description'][msg_id]]) #fixme
+        #if availComms.get(msg_id) != None:
+        dataset_talk = talk_information['url'][msg_id]
+        talk_segment = dataset_talk[26:]
+        temp = "https://embed.ted.com/talks/" + talk_segment
+        ret.append([temp, talk_information['title'][msg_id], talk_information['description'][msg_id]]) #fixme
     #print(ret)
     return ret
