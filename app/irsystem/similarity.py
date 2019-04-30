@@ -152,7 +152,7 @@ def combined_search(query):
             ret.append((i_d.get(i), i))
     ret = sorted(ret,reverse=True)
     r = []
-    for score, msg_id in ret[:10]:
+    for score, msg_id in ret[:3]:
         dataset_talk = talk_information['url'][msg_id]
         talk_segment = dataset_talk[26:]
         temp = "https://embed.ted.com/talks/" + talk_segment
