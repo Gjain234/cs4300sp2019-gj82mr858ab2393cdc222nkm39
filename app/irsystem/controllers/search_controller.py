@@ -46,7 +46,7 @@ def search():
 		output_message = query
 		prompt1 = process_single_prompt(request.url)
 		#video_url= "https://embed.ted.com/talks/colin_powell_kids_need_structure"
-		topic_vids = combined_search(prompt1)
+		topic_vids = combined_search(query)
                 # data = combined_search(prompt1)
 		video_url = get_prompt1_video_link(query)
 
