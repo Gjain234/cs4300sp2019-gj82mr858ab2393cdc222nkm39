@@ -71,8 +71,8 @@ def moodvid(lst,mood,data): #returning 1 video
 
 #function that takes in the closest_projects function and the index of the desirable video
 #outputs the url of the second video in the cluster
-def extract_cluster_ratings(data, index, mood):
-    lst=closest_projects(index, docs_compressed)
+def extract_cluster_ratings(data, index, mood,docs):
+    lst=closest_projects(index, doc)
     #name=lst[1][0]
     #i=findindex(data,name)
     i = moodvid(lst, mood, data)
@@ -84,7 +84,7 @@ def top_svd(data, index, mood, docs):
     #i = moodvid(lst, mood, data)
     ranked_vids = moodvid(lst,mood,data)
     top_vids = []
-    for i in range(10):
+    for i in range(3):
         ind = ranked_vids[i][0]
         temp_url = data[ind]['url']
         embed_url = "https://embed.ted.com/talks/" + temp_url[26:]
