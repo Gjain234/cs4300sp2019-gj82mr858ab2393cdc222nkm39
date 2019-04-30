@@ -31,19 +31,19 @@ def findindex_name(data,name):
         if data[x]['name']== name: #this was a list of urls! nothing will correspond to the list. took the first one.
             return x
 #creates tf-idf matrix, can alter max_df and min_df
-vectorizer = TfidfVectorizer(stop_words = 'english', max_df = .75,
-                            min_df = 50)
-my_matrix = vectorizer.fit_transform([x[1] for x in documents]).transpose()
+#vectorizer = TfidfVectorizer(stop_words = 'english', max_df = .75,
+#                            min_df = 50)
+#my_matrix = vectorizer.fit_transform([x[1] for x in documents]).transpose()
 
 
 #runs svd, can alter k but values mostly live in the space under 30
-words_compressed, _, docs_compressed = svds(my_matrix, k=40) #number of dimensions the data lives in
-docs_compressed = docs_compressed.transpose()
+#words_compressed, _, docs_compressed = svds(my_matrix, k=40) #number of dimensions the data lives in
+#docs_compressed = docs_compressed.transpose()
 #print(docs_compressed.shape)
 
 
 #creates clusters of 15 vidoes based on the index of the input video
-docs_compressed = normalize(docs_compressed, axis = 1)
+#docs_compressed = normalize(docs_compressed, axis = 1)
 #print(docs_compressed.shape)
 def closest_projects(project_index_in, docs_compressed, k = 15):
     y = docs_compressed[project_index_in,:].transpose()
