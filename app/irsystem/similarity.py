@@ -170,7 +170,6 @@ def comment_search(query,topic):
     query += ' '
     for q in proc_tags[topic]:
         query += q + ' '
-    print(query)
     r = index_search(query, comment_inv, comment_idf, comment_norms,tokenize)
     ret = []
     #print(r)

@@ -36,8 +36,8 @@
             }
 
             .icon-small{
-                height: 40px;  
-                width: 40px; 
+                height: 40px;
+                width: 40px;
                 color: rgb(249, 246, 248);
                 background-color: rgba(255, 255, 255, 0.911);
                 position: absolute;
@@ -49,8 +49,8 @@
             }
 
             .icon-bulb{
-                height: 40px;  
-                width: 40px; 
+                height: 40px;
+                width: 40px;
                 color: rgb(249, 246, 248);
                 background-color: rgba(255, 255, 255, 0.911);
                 position: absolute;
@@ -74,7 +74,7 @@
                 display: none;
                 box-sizing: border-box;
                 border: 0.2px solid white;
-                padding: 10px;  
+                padding: 10px;
             }
 
             .info-box-bulb{
@@ -90,7 +90,7 @@
                 display: none;
                 box-sizing: border-box;
                 border: 0.2px solid white;
-                padding: 10px;  
+                padding: 10px;
             }
 
             .dropbtn {
@@ -187,20 +187,14 @@
                 }
                 // $(document).ready(function() {
                 $(document).on("click",function() {
-                  console.log("ready function");
                   var category = document.getElementById("cat").innerHTML
                   var mood = document.getElementById("mood").innerHTML
-                  console.log("inside click function");
-                  console.log(category);
-                  console.log(mood);
                   $.ajax({
                     type: "GET",
                     data:{category:category,
                       mood:mood
                     },
                     success: function(data) {
-                      console.log("hiii");
-                      console.log(category)
                     }
                   })
                   //}
@@ -212,7 +206,7 @@
             function myFunction(x,item){
                 document.getElementById(item).innerHTML = x;
             }
-            
+
             function showInfo(i){
                     document.getElementById(i).style.display="block"
             }

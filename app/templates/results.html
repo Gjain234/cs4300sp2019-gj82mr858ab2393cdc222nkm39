@@ -30,7 +30,7 @@
             display: none;
             box-sizing: border-box;
             border: 0.2px solid white;
-            padding: 10px;  
+            padding: 10px;
         }
 
         .text-vid1 {
@@ -100,8 +100,8 @@
         }
 
         .arrow-up {
-            width: 0; 
-            height: 0; 
+            width: 0;
+            height: 0;
             position: absolute;
             top: 30;
             right:42%;
@@ -112,8 +112,8 @@
         }
 
         .arrow-down {
-            width: 0; 
-            height: 0; 
+            width: 0;
+            height: 0;
             bottom: -70;
             right:42%;
             position:absolute;
@@ -126,23 +126,22 @@
     </style>
     <body>
         <script>
-            console.log("HI");
             var n = 0;
             // console.log(n+1)
-            </script>  
+            </script>
         <div>
             <li class="topcorner"><a href="?search.html" class="btn btn-info"> Back to Search </a></li>
-            <h1 class="top" id= "results" style="text-align:center;font-family:Codystar; color:rgb(245, 115, 110); position:absolute; top:10%; left:15%; right:15%;">Showing Results for: {{output_message}}</h1>        
+            <h1 class="top" id= "results" style="text-align:center;font-family:Codystar; color:rgb(245, 115, 110); position:absolute; top:10%; left:15%; right:15%;">Showing Results for: {{output_message}}</h1>
             <span class="top" id= "results" style="cursor:pointer; text-align:center;font-family:Didot; font-size: 15px; color:rgb(180, 154, 184); position:absolute; top: 20%; left:15%; box-sizing: border-box;border: 1px solid rgb(168, 166, 166);padding: 10px;">Mood: {{mood}}</span>
-            <span class="top" id= "results" style="cursor:pointer; text-align:center;font-family:Didot; font-size:15px; color:rgb(180, 154, 184); position:absolute; top: 20%; right:15%; box-sizing: border-box;border: 1px solid rgb(148, 147, 147);padding: 10px;">Category: {{category}}</span>        
-        </div>        
+            <span class="top" id= "results" style="cursor:pointer; text-align:center;font-family:Didot; font-size:15px; color:rgb(180, 154, 184); position:absolute; top: 20%; right:15%; box-sizing: border-box;border: 1px solid rgb(148, 147, 147);padding: 10px;">Category: {{category}}</span>
+        </div>
         <br>
 	<form class="form-inline global-search">
                 <br>
             <br>
         <div class="playlist" id="p1">
-        <div class="theme" align="center" id="moodset">MoodSet</div>  
-        <div class="arrow-up" type = "button" id="moodup" align="center" href="#" onclick="plus(-1, 'mood')"></div>         
+        <div class="theme" align="center" id="moodset">MoodSet</div>
+        <div class="arrow-up" type = "button" id="moodup" align="center" href="#" onclick="plus(-1, 'mood')"></div>
         <div class="text-vid1" id="vid1">
             <div class="video-box-mood" id= "vidbox1mood" style:"text-align:center;text-overflow:ellipsis;">
                 <iframe id= class="video"
@@ -153,7 +152,7 @@
                 <div style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left; text-overflow:ellipsis;">{{data[0][0][i]}}</div>
                 <br>
                 {% endfor %}
-            </div> 
+            </div>
 
             <div class="video-box-mood" id= "vidbox2mood" style:"text-align:center;text-overflow:ellipsis;">
                     <iframe class="video"
@@ -176,13 +175,13 @@
                     <br>
                     {% endfor %}
                 </div>
-            <div class="arrow-down" align="center" href="#" onclick="plus(1, 'mood')"></div>                     
+            <div class="arrow-down" align="center" href="#" onclick="plus(1, 'mood')"></div>
             </div>
         </div>
 
         <div class="playlist" id="p2">
-        <div class="theme" align="center" id="skillset">Skill</div>    
-        <div class="arrow-up" align="center" href="#" onclick="plus(-1, 'skill')"></div>                                 
+        <div class="theme" align="center" id="skillset">Skill</div>
+        <div class="arrow-up" align="center" href="#" onclick="plus(-1, 'skill')"></div>
         <div class="text-vid2">
             <div class="video-box-skill" id="vidbox1skill" style:"text-align:center;text-overflow:ellipsis;">
                 <iframe class="video"
@@ -190,10 +189,10 @@
                 width="280" height="180"
                 frameborder="0" scrolling="no"></iframe><br><br>
                 {% for i in range(1, 4)%}
-                <div style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;text-overflow:ellipsis;">{{data[1][0][i]}}</div>                
+                <div style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;text-overflow:ellipsis;">{{data[1][0][i]}}</div>
                 <br>
                 {% endfor %}
-            </div> 
+            </div>
 
             <div class="video-box-skill" id="vidbox2skill" style:"text-align:center;text-overflow:ellipsis;">
                     <iframe class="video"
@@ -204,7 +203,7 @@
                     <div style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;text-overflow:ellipsis;">{{data[1][1][i]}}</div>
                     <br>
                     {% endfor %}
-                </div> 
+                </div>
 
             <div class="video-box-skill" id="vidbox3skill" style:"text-align:center;text-overflow:ellipsis;">
                     <iframe class="video"
@@ -215,14 +214,14 @@
                     <div style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;text-overflow:ellipsis;">{{data[1][2][i]}}</div>
                     <br>
                     {% endfor %}
-                </div> 
-            <div class="arrow-down" align="center" href="#" onclick="plus(1, 'skill')"></div>                     
+                </div>
+            <div class="arrow-down" align="center" href="#" onclick="plus(1, 'skill')"></div>
         </div>
         </div>
 
         <div class="playlist" id="p3">
-        <div class="theme" align="center" id="lifestyle">Lifestyle</div>  
-        <div class="arrow-up" align="center" href="#" onclick="plus(-1, 'lifestyle')"></div>                 
+        <div class="theme" align="center" id="lifestyle">Lifestyle</div>
+        <div class="arrow-up" align="center" href="#" onclick="plus(-1, 'lifestyle')"></div>
         <div class="text-vid3">
             <div class="video-box-lifestyle" id= "vidbox1lifestyle" style:"text-align:center;text-overflow:ellipsis;">
                 <iframe class="video"
@@ -233,7 +232,7 @@
                 <div style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;text-overflow:ellipsis;">{{data[2][0][i]}}</div>
                 <br>
                 {% endfor %}
-            </div> 
+            </div>
 
             <div class="video-box-lifestyle" id="vidbox2lifestyle" style:"text-align:center;text-overflow:ellipsis;">
                     <iframe class="video"
@@ -255,10 +254,10 @@
                     <div style="font-size: 18px; font-family: 'Poiret One'; color: rgb(3, 3, 3); position:relative;text-align:left;text-overflow:ellipsis;">{{data[2][2][i]}}</div>
                     <br>
                     {% endfor %}
-            </div> 
-            <div class="arrow-down" align="center" href="#" onclick="plus(1, 'lifestyle')"></div>                     
+            </div>
+            <div class="arrow-down" align="center" href="#" onclick="plus(1, 'lifestyle')"></div>
         </div>
-        </div>    
+        </div>
         </form>
         <style>
         body {
@@ -309,5 +308,5 @@
             }
         </script>
     </body>
-    
+
 </html>

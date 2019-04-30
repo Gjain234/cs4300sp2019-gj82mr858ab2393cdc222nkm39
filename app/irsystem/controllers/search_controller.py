@@ -30,12 +30,6 @@ def search():
 	mood = request.args.get('mood')
 	if(mood!="Mood Preference" and mood!=None):
 		mood_q.append(mood)
-	#rel = mood_q.pop()
-
-
-	# print("get ready:")
-	# print(cat_q)
-	# print(mood_q)
 	if not query:
 		data = []
 		output_message = ''
@@ -49,8 +43,6 @@ def search():
 		topic_vids = combined_search(prompt1)
                 # data = combined_search(prompt1)
 		video_url = get_prompt2_video_link(query)
-		print("VIDEO URL SET? ")
-		print(video_url)
 
 		# '''S  V   D '''
 		with open("ted_main.json", encoding="utf8") as f:
@@ -74,10 +66,4 @@ def search():
 		mood_vids = top_svd(data2, idx, mood)
 		lifestyle_vids = comment_search(query,catg.lower())
 		data = [mood_vids, topic_vids, lifestyle_vids]
-		print("mood_vids: ")
-		print(mood_vids)
-		print("mood_vids length: ")
-		print(len(mood_vids))
-		print("mood_vids 0 index: ")
-		print(mood_vids[0])
 		return render_template('results.html', output_message=output_message, data=data, video_url = video_url, n=0, mood=mood, category=catg)

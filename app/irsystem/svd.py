@@ -16,9 +16,6 @@ with open("ted_main.json", encoding="utf8") as f:
 
 #given the data file and the url of the video, outputs the index that video is located at
 def findindex_url(data,url):
-    print(len(data))
-    print("HERE IS THE URL: ")
-    print(url)
     #u = url[0][0:(len(url[0]))]
     #u = u.replace("embed", "www")
     url[0] = url[0].replace("embed","www")
@@ -26,14 +23,12 @@ def findindex_url(data,url):
     for x in range(len(data)):
         #print(data[x]['url'])
         if data[x]['url']== url[0]: #this was a list of urls! nothing will correspond to the list. took the first one.
-            print("SUCCESS")
             return x
 
 def findindex_name(data,name):
     for x in range(len(data)):
         #print(data[x]['url'])
         if data[x]['name']== name: #this was a list of urls! nothing will correspond to the list. took the first one.
-            print("SUCCESS2")
             return x
 #creates tf-idf matrix, can alter max_df and min_df
 vectorizer = TfidfVectorizer(stop_words = 'english', max_df = .75,
@@ -53,25 +48,11 @@ docs_compressed = normalize(docs_compressed, axis = 1)
 def closest_projects(project_index_in, docs_compressed, k = 15):
     y = docs_compressed[project_index_in,:].transpose()
     y = np.asmatrix(y)
-    print("docs_compressed.shape")
-    print(docs_compressed.shape)
-    print("docs_compressed[project_index_in,:].shape: ")
-    print(docs_compressed[0][0].shape)
-    print(docs_compressed[0][0:40])
-    print("project_index_in value: ")
-    print(project_index_in)
     slice = np.array(list(docs_compressed[project_index_in][0:40]))
-    print("slice length")
-    print(slice.shape)
-    print("docs_compressed[project_index_in].shape: ")
-    print(docs_compressed[project_index_in].shape)
-    print("experimenting with reshape: ")
     #print(docs_compressed[project_index_in,:].reshape(30,)) WONT WORK 76500 -> 30
     #docs_compressed[project_index_in].reshape()
     #y_new = docs_compressed[0]
     sims = np.dot(docs_compressed, slice) #y_new
-    print("sims.shape: ")
-    print(sims.shape)
     asort = np.argsort(-sims)[:k+1]
     return [(documents[i][0],sims[i]/sims[asort[0]]) for i in asort[1:]]
 
@@ -87,15 +68,7 @@ def moodvid(lst,mood,data): #returning 1 video
             if ratings[el]['name']==mood:
                 count= ratings[el]['count']
                 vid_mood_lst.append((index,count))
-                #print("ACCUMULATING")
-
-                #print(vid_mood_lst)
-                # if count > mx:
-                #     mx=count
-                #     vid=index
         sorted_vid_mood_lst = sorted(vid_mood_lst, key=lambda tup: tup[1])
-        print("FINAL VID MOOD LIST: ")
-        print(sorted_vid_mood_lst)
     return sorted_vid_mood_lst
 
 #function that takes in the closest_projects function and the index of the desirable video
@@ -109,13 +82,9 @@ def extract_cluster_ratings(data, index, mood):
 
 #returns top 10 sorted results using SVD not including top video
 def top_svd(data, index, mood):
-    print("INDEX READING FROM TOP_SVD: ")
-    print(index)
     lst=closest_projects(index, docs_compressed)
     #i = moodvid(lst, mood, data)
     ranked_vids = moodvid(lst,mood,data)
-    print("ranked_vids size")
-    print(len(ranked_vids))
     top_vids = []
     for i in range(10):
         ind = ranked_vids[i][0]
