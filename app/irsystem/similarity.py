@@ -109,7 +109,7 @@ def get_prompt1_video_link(query):
     r = index_search(query, description_inv, description_idf, description_norms,tokenize)
     ret = []
     videos = []
-    for score, msg_id in r[:10]:
+    for score, msg_id in r[:3]:
         #ret.append([score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
         dataset_talk = talk_information['url'][msg_id]
         talk_segment = dataset_talk[26:]
@@ -157,7 +157,7 @@ def combined_search(query):
     #        ret.append((0.9 * i_d.get(i), i))
     #ret = sorted(ret,reverse=True)
     r = []
-    for score, msg_id in d[:10]:
+    for score, msg_id in d[:3]:
         dataset_talk = talk_information['url'][msg_id]
         talk_segment = dataset_talk[26:]
         temp = "https://embed.ted.com/talks/" + talk_segment
@@ -173,7 +173,7 @@ def comment_search(query,topic):
     r = index_search(query, comment_inv, comment_idf, comment_norms,tokenize)
     ret = []
     #print(r)
-    for score, msg_id in r[:10]:
+    for score, msg_id in r[:3]:
         #if availComms.get(msg_id) != None:
         dataset_talk = talk_information['url'][msg_id]
         talk_segment = dataset_talk[26:]
