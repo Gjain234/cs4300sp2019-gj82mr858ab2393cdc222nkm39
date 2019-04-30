@@ -49,6 +49,8 @@ def search():
 		topic_vids = combined_search(prompt1)
                 # data = combined_search(prompt1)
 		video_url = get_prompt2_video_link(query)
+		print("VIDEO URL SET? ")
+		print(video_url)
 
 		# '''S  V   D '''
 		with open("ted_main.json", encoding="utf8") as f:
@@ -56,7 +58,7 @@ def search():
 			data2=json.load(f)
 			for x in data2:
 				documents.append((x["name"], x["description"]))
-		idx = findindex(data2, video_url)
+		idx = findindex_url(data2, video_url)
 		vectorizer = TfidfVectorizer(stop_words = 'english', max_df = .8,
 		                            min_df = 40)
 		my_matrix = vectorizer.fit_transform([x[1] for x in documents]).transpose()

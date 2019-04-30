@@ -125,7 +125,7 @@ def get_prompt2_video_link(query):
     r = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
     ret = []
     videos = []
-    for score, msg_id in r[:10]:
+    for score, msg_id in r[:1]: #previously: [:10]
         #ret.append([score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
         dataset_talk = talk_information['url'][msg_id]
         talk_segment = dataset_talk[26:]
