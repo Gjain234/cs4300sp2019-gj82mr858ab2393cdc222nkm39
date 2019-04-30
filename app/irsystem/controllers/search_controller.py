@@ -9,7 +9,8 @@ import ast
 project_name = "Get StartTED: TED Talk Recommendation System"
 # net_id = "Andrea Benson ab2393, Caroline Chang cdc222, Nandita Mohan nkm39, Gauri Jain gj82, Michael Rivera mr858"
 net_id = "Andrea Benson, Caroline Chang, Nandita Mohan, Gauri Jain, Michael Rivera"
-
+cat_q = ["Other"]
+mood_q = ["Informative"]
 
 def process_single_prompt(url): #functionality could be in a js file as well
 	url_parts = url.split('=')
@@ -22,15 +23,19 @@ def process_single_prompt(url): #functionality could be in a js file as well
 
 @irsystem.route('/', methods=['GET'])
 def search():
-	cat_q = None
-	mood_q = None
 	query = request.args.get('search')
 	cat = request.args.get('category')
-	if(cat!="Select Category" and cat!=None):
-		cat_q=cat
+
+	if cat!="Select Category" and cat!=None:
+		cat_q.append(cat)
+	elif cat!=None:
+		cat_q.append("Other")
 	mood = request.args.get('mood')
+
 	if(mood!="Mood Preference" and mood!=None):
-		mood_q=mood
+		mood_q.append(mood)
+	elif mood!=None:
+		mood_q.append("Informative")
 	if not query:
 		data = []
 		output_message = ''
@@ -62,14 +67,10 @@ def search():
 
 		cluster = closest_projects(idx, docs_compressed)
 
-		mood = "Informative"
-		if mood_q:
-			mood = mood_q
-		catg = "Other"
-		if cat_q:
-			catg = cat_q
+		query_category = cat_q.pop()
+		query_mood = mood_q.pop()
 		#ec = extract_cluster_ratings(data2, idx, mood)
-		mood_vids = top_svd(data2, idx, mood, docs_compressed)
-		lifestyle_vids = comment_search(query,catg.lower())
+		mood_vids = top_svd(data2, idx, query_mood, docs_compressed)
+		lifestyle_vids = comment_search(query,query_category.lower())
 		data = [mood_vids, topic_vids, lifestyle_vids]
-		return render_template('results.html', output_message=output_message, data=data, video_url = video_url, n=0, mood=mood, category=catg)
+		return render_template('results.html', output_message=output_message, data=data, video_url = video_url, n=0, mood=query_mood, category=query_category)

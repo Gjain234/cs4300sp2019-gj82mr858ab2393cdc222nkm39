@@ -76,7 +76,8 @@
             border-radius: 15px;
             align-content: center;
             text-overflow: ellipsis;
-            overflow: hidden;
+            cursor: pointer;
+            overflow: scroll;
         }
 
         .video-box-skill {
@@ -86,7 +87,8 @@
             border-radius: 15px;
             align-content: center;
             text-overflow: ellipsis;
-            overflow: hidden;
+            cursor: pointer;
+            overflow: scroll;
         }
 
         .video-box-lifestyle {
@@ -96,7 +98,8 @@
             border-radius: 15px;
             align-content: center;
             text-overflow: ellipsis;
-            overflow: hidden;
+            cursor: pointer;
+            overflow: scroll;
         }
 
         .arrow-up {
@@ -125,10 +128,6 @@
 
     </style>
     <body>
-        <script>
-            var n = 0;
-            // console.log(n+1)
-            </script>
         <div>
             <li class="topcorner"><a href="?search.html" class="btn btn-info"> Back to Search </a></li>
             <h1 class="top" id= "results" style="text-align:center;font-family:Codystar; color:rgb(245, 115, 110); position:absolute; top:10%; left:15%; right:15%;">Showing Results for: {{output_message}}</h1>
@@ -141,7 +140,7 @@
             <br>
         <div class="playlist" id="p1">
         <div class="theme" align="center" id="moodset">MoodSet</div>
-        <div class="arrow-up" type = "button" id="moodup" align="center" href="#" onclick="plus(-1, 'mood')"></div>
+        <div class="arrow-up" align="center" href="#" onclick="plus(-1, 'mood')"></div>
         <div class="text-vid1" id="vid1">
             <div class="video-box-mood" id= "vidbox1mood" style:"text-align:center;text-overflow:ellipsis;">
                 <iframe id= class="video"
