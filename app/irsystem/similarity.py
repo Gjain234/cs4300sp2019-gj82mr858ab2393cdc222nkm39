@@ -34,13 +34,13 @@ def tokenize_transcript(tokenize_method,input_transcript):
         final_lst = final_lst + list(set(tokenize_method(input_transcript[i])))
     return final_lst
 
-description_idf = pickle.load(open("description_idf.pkl", "rb"))
+#description_idf = pickle.load(open("description_idf.pkl", "rb"))
 #transcript_idf = pickle.load(open("transcript_idf.pkl", "rb"))
 
-description_inv = pickle.load(open("description_inv.pkl", "rb"))
+#description_inv = pickle.load(open("description_inv.pkl", "rb"))
 #transcript_inv = pickle.load(open("transcript_inv.pkl", "rb"))
 
-description_norms = pickle.load(open("description_norms.pkl", "rb"))
+#description_norms = pickle.load(open("description_norms.pkl", "rb"))
 #transcript_norms = pickle.load(open("transcript_norms.pkl", "rb"))
 
 comment_idf = pickle.load(open("comment_idf.pkl", "rb"))
@@ -106,7 +106,7 @@ def index_search(query, index, idf, doc_norms, tokenize_method):
 
 def get_prompt1_video_link(query):
     #print("Search: "+ query)
-    r = index_search(query, description_inv, description_idf, description_norms,tokenize)
+    r = index_search(query, description_low_inv, description_low_idf, description_low_norms,tokenize)
     ret = []
     videos = []
     for score, msg_id in r[:3]:
@@ -137,28 +137,30 @@ def get_prompt1_video_link(query):
 #    return videos
 
 def combined_search(query):
-    expan = index_search(query, description_low_inv, description_low_idf, description_low_norms,tokenize)
-    query += " "
-    for res in expan[:5]:
-        for tags in talk_information['description'][res[1]]:
-            query += tags
-    d = index_search(query, description_inv, description_idf, description_norms,tokenize)
-    i_d = {i:s for (s,i) in d}
-    ret = []
-    for i in range(0,len(i_d.keys())):
-        if i_d.get(i) != None:
-            ret.append((i_d.get(i), i))
-        elif i_d.get(i) != None:
-            ret.append((i_d.get(i), i))
-    ret = sorted(ret,reverse=True)
+    d = index_search(query, description_low_inv, description_low_idf, description_low_norms,tokenize)
+    #i_d = {i:s for (s,i) in d}
+    #ret = []
+    #for i in range(0,len(i_d.keys())):
+    #    if i_d.get(i) != None:
+    #        ret.append((i_d.get(i), i))
+    #    elif i_d.get(i) != None:
+    #        ret.append((i_d.get(i), i))
+    #ret = sorted(ret,reverse=True)
     r = []
-    for score, msg_id in ret[:3]:
+    for score, msg_id in d[:3]:
         dataset_talk = talk_information['url'][msg_id]
         talk_segment = dataset_talk[26:]
         temp = "https://embed.ted.com/talks/" + talk_segment
         r.append([temp, score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
     return r
 
+def qExpan(query):
+    expan = index_search(query, description_low_inv, description_low_idf, description_low_norms,tokenize)
+    query += " "
+    for res in expan[:5]:
+        for tags in talk_information['description'][res[1]]:
+            query += tags
+    return query
 
 
 def comment_search(query,topic):
