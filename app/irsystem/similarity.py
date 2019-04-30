@@ -6,7 +6,7 @@ import json
 import collections
 import math
 
-transcripts = pd.read_csv('transcripts.csv')
+#transcripts = pd.read_csv('transcripts.csv')
 talk_information = pd.read_csv('ted_main.csv')
 comments = pickle.load(open("comments_plain.pkl", "rb"))
 
