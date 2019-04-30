@@ -35,13 +35,13 @@ def tokenize_transcript(tokenize_method,input_transcript):
     return final_lst
 
 description_idf = pickle.load(open("description_idf.pkl", "rb"))
-transcript_idf = pickle.load(open("transcript_idf.pkl", "rb"))
+#transcript_idf = pickle.load(open("transcript_idf.pkl", "rb"))
 
 description_inv = pickle.load(open("description_inv.pkl", "rb"))
-transcript_inv = pickle.load(open("transcript_inv.pkl", "rb"))
+#transcript_inv = pickle.load(open("transcript_inv.pkl", "rb"))
 
 description_norms = pickle.load(open("description_norms.pkl", "rb"))
-transcript_norms = pickle.load(open("transcript_norms.pkl", "rb"))
+#transcript_norms = pickle.load(open("transcript_norms.pkl", "rb"))
 
 comment_idf = pickle.load(open("comment_idf.pkl", "rb"))
 
@@ -50,16 +50,16 @@ comment_inv = pickle.load(open("comment_inv.pkl", "rb"))
 comment_norms = pickle.load(open("comment_norms.pkl", "rb"))
 
 description_low_idf = pickle.load(open("description_low_idf.pkl", "rb"))
-transcript_low_idf = pickle.load(open("transcript_low_idf.pkl", "rb"))
+#transcript_low_idf = pickle.load(open("transcript_low_idf.pkl", "rb"))
 
 description_low_inv = pickle.load(open("description_low_inv.pkl", "rb"))
-transcript_low_inv = pickle.load(open("transcript_low_inv.pkl", "rb"))
+#transcript_low_inv = pickle.load(open("transcript_low_inv.pkl", "rb"))
 
 description_low_norms = pickle.load(open("description_low_norms.pkl", "rb"))
-transcript_low_norms = pickle.load(open("transcript_low_norms.pkl", "rb"))
+#transcript_low_norms = pickle.load(open("transcript_low_norms.pkl", "rb"))
 
-availComms = pickle.load(open("availComms.pkl", "rb"))
-availTalks = pickle.load(open("availTalks.pkl", "rb"))
+#availComms = pickle.load(open("availComms.pkl", "rb"))
+#availTalks = pickle.load(open("availTalks.pkl", "rb"))
 
 proc_tags = pickle.load(open("proc_tags.pkl", "rb"))
 
@@ -120,21 +120,21 @@ def get_prompt1_video_link(query):
     #print(video_link)
     return videos
 
-def get_prompt2_video_link(query):
-    #print("Search: "+ query)
-    r = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
-    ret = []
-    videos = []
-    for score, msg_id in r[:1]: #previously: [:10]
-        #ret.append([score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
-        dataset_talk = talk_information['url'][msg_id]
-        talk_segment = dataset_talk[26:]
-        temp = "https://embed.ted.com/talks/" + talk_segment
-        videos.append(temp)
-        #temp = (talk_information['url'][msg_id]) + "?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare"
-    video_link = temp
-    #print(video_link)
-    return videos
+#def get_prompt2_video_link(query):
+#    #print("Search: "+ query)
+#    r = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
+#    ret = []
+#    videos = []
+#    for score, msg_id in r[:1]: #previously: [:10]
+#        #ret.append([score, talk_information['title'][msg_id], talk_information['description'][msg_id]])
+#        dataset_talk = talk_information['url'][msg_id]
+#        talk_segment = dataset_talk[26:]
+#        temp = "https://embed.ted.com/talks/" + talk_segment
+#        videos.append(temp)
+#        #temp = (talk_information['url'][msg_id]) + "?utm_campaign=tedspread&utm_medium=referral&utm_source=tedcomshare"
+#    video_link = temp
+#    #print(video_link)
+#    return videos
 
 def combined_search(query):
     expan = index_search(query, description_low_inv, description_low_idf, description_low_norms,tokenize)
@@ -145,19 +145,19 @@ def combined_search(query):
         for tags in q:
             query += tags + " "
     #print(query)
-    t = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
+    #t = index_search(query, transcript_inv, transcript_idf, transcript_norms,tokenize)
     d = index_search(query, description_inv, description_idf, description_norms,tokenize)
-    i_t = {i:s for (s,i) in t}
-    i_d = {i:s for (s,i) in d}
-    ret = []
-    for i in range(0,len(i_d.keys())):
-        if i_d.get(i) != None and availTalks.get(i) != None and i_t.get(availTalks[i]) != None:
-            ret.append((0.1 * i_t.get(availTalks[i]) + 0.9 * i_d.get(i), i))
-        elif i_d.get(i) != None:
-            ret.append((0.9 * i_d.get(i), i))
-    ret = sorted(ret,reverse=True)
+    #i_t = {i:s for (s,i) in t}
+    #i_d = {i:s for (s,i) in d}
+    #ret = []
+    #for i in range(0,len(i_d.keys())):
+    #    if i_d.get(i) != None and availTalks.get(i) != None and i_t.get(availTalks[i]) != None:
+    #        ret.append((0.1 * i_t.get(availTalks[i]) + 0.9 * i_d.get(i), i))
+    #    elif i_d.get(i) != None:
+    #        ret.append((0.9 * i_d.get(i), i))
+    #ret = sorted(ret,reverse=True)
     r = []
-    for score, msg_id in ret[:10]:
+    for score, msg_id in d[:10]:
         dataset_talk = talk_information['url'][msg_id]
         talk_segment = dataset_talk[26:]
         temp = "https://embed.ted.com/talks/" + talk_segment

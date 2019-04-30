@@ -43,7 +43,7 @@ def search():
 		#video_url= "https://embed.ted.com/talks/colin_powell_kids_need_structure"
 		topic_vids = combined_search(prompt1)
                 # data = combined_search(prompt1)
-		video_url = get_prompt2_video_link(query)
+		video_url = get_prompt1_video_link(query)
 
 		# '''S  V   D '''
 		with open("ted_main.json", encoding="utf8") as f:
