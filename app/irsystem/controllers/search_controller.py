@@ -12,6 +12,11 @@ net_id = "Andrea Benson, Caroline Chang, Nandita Mohan, Gauri Jain, Michael Rive
 cat_q = ["Other"]
 mood_q = ["Informative"]
 
+documents = []
+data2=json.load(open("ted_main.json", encoding="utf8"))
+for x in data2:
+        documents.append((x["name"], x["description"]))
+
 def process_single_prompt(url): #functionality could be in a js file as well
 	url_parts = url.split('=')
 	prompt = url_parts[1]
@@ -51,11 +56,6 @@ def search():
 		video_url = get_prompt1_video_link(query)
 
 		# '''S  V   D '''
-		with open("ted_main.json", encoding="utf8") as f:
-			documents = []
-			data2=json.load(f)
-			for x in data2:
-				documents.append((x["name"], x["description"]))
 		idx = findindex_url(data2, video_url)
 		vectorizer = TfidfVectorizer(stop_words = 'english', max_df = .8,
 		                            min_df = 40)
